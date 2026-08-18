@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D-печать на заказ — пластик и металл | Синтегра 3D</title>
+  <meta name="description" content="3D-печать на заказ: пластик (FDM — PLA, PETG, TPU, ABS, нейлон, композиты) и металл (SLM — титан, нержавеющая сталь, алюминий, жаропрочные сплавы). Прототипы, функциональные детали, мелкосерийное производство.">
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo">
+      <img src="/img/logo.png" alt="Синтегра 3D">
+    </a>
+    <nav class="header__nav">
+      <a href="/">Главная</a>
+      <a href="/printing.html">3D-печать</a>
+      <a href="/scanning.html">3D-сканирование</a>
+      <a href="/modeling.html">3D-моделирование</a>
+      <a href="/equipment.html">Оборудование</a>
+      <a href="/portfolio.html">Портфолио</a>
+      <a href="/contacts.html">Контакты</a>
+    </nav>
+    <div class="header__cta">
+      <a href="tel:+788555244830" class="header__phone">8-8555-24-48-30</a>
+      <a href="#" class="btn btn--primary btn--sm" data-open-form>Оставить заявку</a>
+    </div>
+    <button class="header__burger" aria-label="Меню"><span></span></button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ======== Первый экран ======== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero__crumbs"><a href="/">Главная</a> / 3D-печать</div>
+      <h1 class="h1" style="margin-bottom:16px">3D-печать на заказ</h1>
+      <p class="lead">Прототипы и изделия из пластика и металла. Мы создаем изделия с помощью передовых технологий — это позволяет обеспечить высокую точность и качество при работе со сложными формами.</p>
+    </div>
+  </section>
+
+  <!-- ======== Пластик | Металл switch ======== -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Направления</span>
+        <h2 class="h2">Пластик или металл?</h2>
+      </div>
+      <div class="tabs reveal" data-tabs>
+        <div class="tabs__nav">
+          <button class="tabs__btn is-active" data-panel="tab-plastic" type="button">Пластик · FDM/FFF</button>
+          <button class="tabs__btn" data-panel="tab-metal" type="button">Металл · SLM/LPBF</button>
+        </div>
+
+        <!-- ПЛАСТИК -->
+        <div class="tabs__panel is-active" id="tab-plastic">
+          <div class="service-block" style="padding-top:0">
+            <div class="service-block__content">
+              <span class="eyebrow">Пластик</span>
+              <h2 class="h2">FDM — прочные и доступные изделия</h2>
+              <p class="lead" style="margin-bottom:16px">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
+              <ul style="display:grid;gap:10px;color:var(--ink-soft);margin-bottom:24px">
+                <li><b style="color:var(--ink)">Преимущества:</b> доступная стоимость, широкий выбор материалов, скорость от идеи до изделия.</li>
+                <li><b style="color:var(--ink)">Оборудование:</b> Stereotech 530 Fiber/Hybrid (рабочая область 300×300×300 мм) и Bambu Lab X1 Carbon (256×256×256 мм).</li>
+                <li><b style="color:var(--ink)">Точность:</b> толщина слоя от 0,05–0,06 мм.</li>
+              </ul>
+              <a href="#plastic-materials" class="btn btn--primary">Материалы</a>
+            </div>
+            <div class="service-block__media">
+              <img src="/img/st-530.png" alt="Промышленный 3D-принтер Stereotech 530" loading="lazy">
+            </div>
+          </div>
+
+          <h3 class="h3" id="plastic-materials" style="margin:32px 0 20px">Пластики, с которыми мы работаем</h3>
+          <div class="grid grid--3">
+            <div class="card reveal">
+              <h3 class="card__title">PLA</h3>
+              <p class="card__text">Прототипирование, макеты, визуальные модели, тестовые изделия.</p>
+            </div>
+            <div class="card reveal">
+              <h3 class="card__title">PETG</h3>
+              <p class="card__text">Функциональные детали, корпуса, элементы, которым требуется повышенная прочность.</p>
+            </div>
+            <div class="card reveal">
+              <h3 class="card__title">ABS / ASA</h3>
+              <p class="card__text">Прочные детали, работающие на улице. Устойчивость к УФ и температурам.</p>
+            </div>
+            <div class="card reveal">
+              <h3 class="card__title">TPU</h3>
+              <p class="card__text">Гибкие изделия: уплотнения, демпферы, эластичные муфты, ремни, ролики.</p>
+            </div>
+            <div class="card reveal">
+              <h3 class="card__title">PA (нейлон) / PC</h3>
+              <p class="card__text">Инженерные пластики для нагруженных деталей, шестерён и механизмов.</p>
+            </div>
+            <div class="card reveal">
+              <h3 class="card__title">Композиты</h3>
+              <p class="card__text">Пластики с коротким волокном (стекло/углерод) и непрерывным углеволокном — прочность до 300% выше.</p>
+            </div>
+          </div>
+          <div class="reveal" style="margin-top:40px">
+            <div class="card">
+              <h3 class="card__title" style="margin-bottom:12px">Параметры нашего FDM-оборудования</h3>
+              <div style="overflow-x:auto">
+              <table class="spec-table" style="min-width:680px">
+                <thead><tr><th></th><th>Stereotech 530 Fiber/Hybrid</th><th>Bambu Lab X1 Carbon</th></tr></thead>
+                <tbody>
+                  <tr><td>Технология</td><td>FDM + 5D (пятиосевая печать), армирование непрерывным углеволокном</td><td>FDM, высокоскоростная печать</td></tr>
+                  <tr><td>Рабочая область</td><td>300 × 300 × 300 мм</td><td>256 × 256 × 256 мм</td></tr>
+                  <tr><td>Экструдеры</td><td>2</td><td>1 (до 4 материалов с AMS)</td></tr>
+                  <tr><td>Мин. толщина слоя</td><td>0,05 мм</td><td>0,06 мм</td></tr>
+                  <tr><td>Темп. экструдера</td><td>до 350 °C</td><td>до 300 °C</td></tr>
+                  <tr><td>Скорость печати</td><td>5–150 мм/с</td><td>до 500 мм/с</td></tr>
+                  <tr><td>Диаметр сопла</td><td>0,1–1,0 мм</td><td>0,2–0,6 мм</td></tr>
+                  <tr><td>Филаменты</td><td>PLA, PVA, ABS, SBS, PETG, TPU, PP, PA6, PA12, PC, композиты с волокном, WAX3D, Ultrafuse 316L (печать металлом)</td><td>PLA, PETG, TPU, ABS, ASA, PVA, PET, PA, PC, композиты с углеродным и стекловолокном</td></tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:32px"><a href="/portfolio.html" class="btn btn--dark">Примеры изделий</a></div>
+        </div>
+
+        <!-- МЕТАЛЛ -->
+        <div class="tabs__panel" id="tab-metal">
+          <div class="service-block" style="padding-top:0">
+            <div class="service-block__content">
+              <span class="eyebrow">Металл</span>
+              <h2 class="h2">SLM / LPBF — промышленная металлическая печать</h2>
+              <p class="lead" style="margin-bottom:16px">Селективное лазерное сплавление металлических порошков на HBD P400: 350×400×400 мм, 4–6 лазеров, плотность изделий до 99,9%.</p>
+              <ul style="display:grid;gap:10px;color:var(--ink-soft);margin-bottom:24px">
+                <li><b style="color:var(--ink)">Зачем:</b> сложная геометрия, внутренние каналы, мелкосерийное производство без оснастки.</li>
+                <li><b style="color:var(--ink)">Точность:</b> характерная 0,05–0,2 мм, слой 20–120 мкм.</li>
+                <li><b style="color:var(--ink)">Типичные изделия:</b> корпуса, оснастка, прототипы, промышленные компоненты, медицинские импланты.</li>
+              </ul>
+              <a href="/equipment.html" class="btn btn--dark">Подробнее об HBD P400</a>
+            </div>
+            <div class="service-block__media">
+              <img src="/img/hbd-p400.jpg" alt="Промышленный 3D-принтер HBD P400 для печати металлом" loading="lazy">
+            </div>
+          </div>
+
+          <!-- интерактивный выбор материала -->
+          <h3 class="h3" id="metal-materials" style="margin:32px 0 20px">Выберите материал</h3>
+          <div class="materials reveal" data-materials>
+            <div class="materials__list">
+              <button class="materials__btn is-active" data-panel="mat-tc4" type="button">Титан · TC4 (Ti6Al4V)</button>
+              <button class="materials__btn" data-panel="mat-316l" type="button">Нержавеющая сталь · 316L</button>
+              <button class="materials__btn" data-panel="mat-17-4ph" type="button">Нержавеющая сталь · 17-4PH</button>
+              <button class="materials__btn" data-panel="mat-alsi" type="button">Алюминий · AlSi10Mg</button>
+              <button class="materials__btn" data-panel="mat-gh4169" type="button">Жаропрочный сплав · GH4169</button>
+              <button class="materials__btn" data-panel="mat-18ni300" type="button">Инструментальная сталь · 18Ni300</button>
+              <button class="materials__btn" data-panel="mat-cx" type="button">Сталь для пресс-форм · CX</button>
+              <button class="materials__btn" data-panel="mat-cocr" type="button">Кобальт-хром · CoCr</button>
+            </div>
+            <div>
+              <div class="materials__panel is-active" id="mat-tc4">
+                <h3>Титан TC4 (Ti6Al4V)</h3>
+                <p class="lead">α+β титановый сплав — наиболее широко используемый класс титановых сплавов в мире.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Высокая прочность при малом весе, отличная биосовместимость. Ближайший к кости модуль упругости среди конструкционных металлов (около 110 ГПа).</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 1050 ± 50 МПа, предел прочности 1230 ± 50 МПа</li>
+                  <li><b>После термообработки:</b> прочность 1015 ± 50 МПа, удлинение 13 ± 3%</li>
+                  <li><b>Применения:</b> медицинские импланты, авиация, спортинвентарь, детали с пористой структурой</li>
+                </ul>
+                <span class="chip">Медицина · Авиация · Промышленность</span>
+              </div>
+              <div class="materials__panel" id="mat-316l">
+                <h3>Нержавеющая сталь 316L</h3>
+                <p class="lead">Коррозионно-стойкая сталь для функциональных деталей и промышленных компонентов.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Прочность, пластичность и свариваемость. Идеальна для корпусов, оснастки, деталей, работающих в агрессивных средах.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 510 ± 100 МПа, предел прочности 700 ± 100 МПа</li>
+                  <li><b>Удлинение:</b> 35 ± 10% — высокая пластичность</li>
+                  <li><b>Применения:</b> корпуса, фланцы, крепёж, детали пищевой и химической промышленности</li>
+                </ul>
+                <span class="chip">Промышленность · Химия · Пищевое оборудование</span>
+              </div>
+              <div class="materials__panel" id="mat-17-4ph">
+                <h3>Нержавеющая сталь 17-4PH</h3>
+                <p class="lead">Высокопрочная осадочно-твердеющая нержавеющая сталь.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Сочетает коррозионную стойкость и высокую прочность после термообработки.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 560 ± 100 МПа, предел прочности 900 ± 100 МПа</li>
+                  <li><b>После термообработки:</b> прочность до 1300 ± 100 МПа, удлинение 16 ± 2%</li>
+                  <li><b>Применения:</b> авиация, оснастка, детали, требующие высокой прочности</li>
+                </ul>
+                <span class="chip">Авиация · Оснастка · Машиностроение</span>
+              </div>
+              <div class="materials__panel" id="mat-alsi">
+                <h3>Алюминий AlSi10Mg</h3>
+                <p class="lead">Лёгкий алюминиевый сплав с отличной теплопроводностью.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Лёгкие конструкции с тонкими стенками и внутренними каналами. Идеален там, где важны вес и теплообмен.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 240 ± 50 МПа, предел прочности 440 ± 50 МПа</li>
+                  <li><b>После термообработки:</b> прочность 320 ± 50 МПа, удлинение 8 ± 3%</li>
+                  <li><b>Применения:</b> корпуса, теплообменники, компоненты с внутренними каналами, лёгкие прототипы</li>
+                </ul>
+                <span class="chip">Электроника · Теплообмен · Автомобилестроение</span>
+              </div>
+              <div class="materials__panel" id="mat-gh4169">
+                <h3>Жаропрочный сплав GH4169</h3>
+                <p class="lead">Никелевый жаропрочный сплав для ответственных узлов, работающих при высоких температурах.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Сохраняет прочность при нагреве — энергетика, газотурбинные компоненты.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 770 ± 80 МПа, предел прочности 1080 ± 80 МПа</li>
+                  <li><b>После термообработки:</b> прочность до 1400 ± 100 МПа</li>
+                  <li><b>Применения:</b> газотурбинные лопатки, элементы камер сгорания, крепёж при высоких температурах</li>
+                </ul>
+                <span class="chip">Энергетика · Авиация · Нефтегаз</span>
+              </div>
+              <div class="materials__panel" id="mat-18ni300">
+                <h3>Инструментальная сталь 18Ni300</h3>
+                <p class="lead">Мартенситно-стареющая сталь с рекордной прочностью после термообработки.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Формы, пресс-формы и оснастка с конформным охлаждением.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 1000 ± 100 МПа, предел прочности 1080 ± 100 МПа</li>
+                  <li><b>После термообработки:</b> прочность до 2000 ± 100 МПа</li>
+                  <li><b>Применения:</b> пресс-формы, вставки, формообразующие элементы, высоконагруженная оснастка</li>
+                </ul>
+                <span class="chip">Пресс-формы · Оснастка · Инструмент</span>
+              </div>
+              <div class="materials__panel" id="mat-cx">
+                <h3>Сталь для пресс-форм CX</h3>
+                <p class="lead">Инструментальная сталь, специально разработанная для формообразующих узлов.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Высокая твёрдость и полируемость. Конформные каналы охлаждения сокращают цикл литья.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Прочность после печати:</b> предел текучести 900 ± 50 МПа, предел прочности 1000 ± 100 МПа</li>
+                  <li><b>После термообработки:</b> прочность до 1600 ± 100 МПа</li>
+                  <li><b>Применения:</b> пресс-формы для литья под давлением, вставки с каналами охлаждения</li>
+                </ul>
+                <span class="chip">Литьё · Пресс-формы</span>
+              </div>
+              <div class="materials__panel" id="mat-cocr">
+                <h3>Кобальт-хром CoCr</h3>
+                <p class="lead">Биосовместимый сплав высокой прочности.</p>
+                <p style="color:var(--ink-soft);margin-bottom:16px">Стоматология, ортопедия, износостойкие промышленные компоненты.</p>
+                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+                  <li><b>Применения:</b> зубные коронки, съёмные конструкции, хирургический инструмент, износостойкие детали</li>
+                  <li><b>Прочность:</b> одни из высочайших среди сплавов для аддитивных технологий</li>
+                </ul>
+                <span class="chip">Медицина · Стоматология · Промышленность</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Что мы уже изготовили ======== -->
+  <section class="section section--alt" id="made">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Портфолио</span>
+        <h2 class="h2">Что мы уже изготовили</h2>
+        <p class="lead">Реальные изделия с нашего производства.</p>
+      </div>
+      <div class="gallery" data-gallery>
+        <div class="gallery__filter" style="grid-column:1/-1">
+          <button class="is-active" data-filter="all" type="button">Все</button>
+          <button data-filter="metal" type="button">Металл</button>
+          <button data-filter="plastic" type="button">Пластик</button>
+        </div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-5.png" alt="Рабочие колёса насосов" data-lightbox loading="lazy"><div class="gallery__caption"><b>Рабочие колёса насосов</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-8.png" alt="Корпусные детали и крышки" data-lightbox loading="lazy"><div class="gallery__caption"><b>Корпусные детали, крышки</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-7.png" alt="Шестерни, в том числе конические" data-lightbox loading="lazy"><div class="gallery__caption"><b>Шестерни</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-3.png" alt="Резиновые ролики" data-lightbox loading="lazy"><div class="gallery__caption"><b>Резиновые ролики</b>TPU · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-4.png" alt="Шнеки и винты" data-lightbox loading="lazy"><div class="gallery__caption"><b>Шнеки, винты</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-6.png" alt="Крыльчатки охлаждения" data-lightbox loading="lazy"><div class="gallery__caption"><b>Крыльчатки охлаждения</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-9.png" alt="Демпферы и эластичные муфты" data-lightbox loading="lazy"><div class="gallery__caption"><b>Демпферы, эластичные муфты</b>TPU · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-2.png" alt="Ролики, в том числе с подшипником" data-lightbox loading="lazy"><div class="gallery__caption"><b>Ролики</b>Пластик · FDM</div></div>
+        <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-1.png" alt="Мембраны насосов" data-lightbox loading="lazy"><div class="gallery__caption"><b>Мембраны насосов</b>TPU · FDM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/korpus-kompressora.jpg" alt="Корпус компрессора из алюминиевого сплава" data-lightbox loading="lazy"><div class="gallery__caption"><b>Корпус компрессора</b>Алюминиевый сплав · SLM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-24_14-54-05.jpg" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-23_15-00-04.jpg" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CTA ======== -->
+  <section class="cta">
+    <div class="cta__inner container">
+      <h2 class="h2">Рассчитать стоимость печати</h2>
+      <p>Пришлите модель, чертёж или фото — подберём технологию, материал и посчитаем сроки.</p>
+      <a href="#" class="btn btn--primary" data-open-form>Оставить заявку</a>
+      <a href="tel:+788555244830" class="btn btn--ghost">Позвонить</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div>
+        <a href="/" class="footer__logo"><img src="/img/logo.png" alt="Синтегра 3D"></a>
+        <p class="footer__about">Синтегра 3D — аддитивные технологии. 3D-печать металлом и пластиком, 3D-сканирование, 3D-моделирование, реверс-инжиниринг.</p>
+      </div>
+      <div>
+        <div class="footer__title">Разделы</div>
+        <ul class="footer__nav">
+          <li><a href="/printing.html">3D-печать</a></li>
+          <li><a href="/scanning.html">3D-сканирование</a></li>
+          <li><a href="/modeling.html">3D-моделирование</a></li>
+          <li><a href="/equipment.html">Оборудование</a></li>
+          <li><a href="/portfolio.html">Портфолио</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__title">Компания</div>
+        <ul class="footer__nav">
+          <li><a href="/#about">О компании</a></li>
+          <li><a href="/#why">Почему мы</a></li>
+          <li><a href="/#process">Как мы работаем</a></li>
+          <li><a href="/#faq">Вопросы и ответы</a></li>
+          <li><a href="/contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__title">Контакты</div>
+        <div class="footer__contacts">
+          <a href="tel:+788555244830">8-8555-24-48-30</a>
+          <a href="mailto:info@s-nk.su">info@s-nk.su</a>
+          <span style="color:#8f97a6;font-size:14px">г. Нижнекамск, БСИ, ул. Заводская 3&nbsp;В</span>
+          <span style="color:#8f97a6;font-size:14px">г. Москва, ул. Матросская Тишина, 23с1</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Группа компаний «Синтегра». Все права защищены.</span>
+      <span>ООО «Синтегра» · Нижнекамск · Москва</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Модальное окно заявки -->
+<div class="lightbox" id="lead-modal" style="z-index:400;align-items:flex-start;overflow-y:auto;padding:80px 20px 40px">
+  <button class="lightbox__close" data-close-form aria-label="Закрыть">×</button>
+  <form class="form" data-form style="max-width:640px;margin:0 auto;width:100%">
+    <h3 class="form__title">Оставить заявку</h3>
+    <p class="form__sub">Заполните форму — мы свяжемся с вами в ближайшее время.</p>
+    <div class="form-grid">
+      <div class="form-field"><label>Имя *</label><input name="name" type="text" placeholder="Ваше имя" required minlength="2"></div>
+      <div class="form-field"><label>Телефон *</label><input name="phone" type="tel" placeholder="+7 (___) ___-__-__" required></div>
+      <div class="form-field"><label>E-mail</label><input name="email" type="email" placeholder="you@mail.ru"></div>
+      <div class="form-field"><label>Что необходимо изготовить? *</label><input name="task" type="text" placeholder="Например: корпусная деталь, 100 шт." required></div>
+      <div class="form-field form-field--full"><label>Комментарий</label><textarea name="comment" placeholder="Опишите задачу подробнее"></textarea></div>
+      <div class="form-field form-field--full">
+        <div class="form-file"><span>📎</span><span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span><input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip"></div>
+        <div class="form-hint-file">STL, OBJ, 3MF, STEP, PDF, DXF, DWG, JPG, PNG, ZIP</div>
+      </div>
+      <div class="form-field form-field--full">
+        <label class="form-consent"><input name="consent" type="checkbox" required><span>Я согласен на обработку персональных данных в соответствии с <a href="#" title="Политика обработки персональных данных — добавим документ">политикой обработки персональных данных</a></span></label>
+      </div>
+      <div class="form-field form-field--full">
+        <button type="submit" class="btn btn--primary btn--block">Отправить заявку</button>
+        <div class="form-msg"></div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Мобильная панель -->
+<div class="mobile-bar">
+  <a href="tel:+788555244830">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Позвонить
+  </a>
+  <a href="#" data-open-form class="is-accent">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Оставить заявку
+  </a>
+  <a href="mailto:info@s-nk.su">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+    Написать
+  </a>
+</div>
+
+<script>
+  var modal = document.getElementById('lead-modal');
+  document.querySelectorAll('[data-open-form]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) { e.preventDefault(); modal.classList.add('is-open'); });
+  });
+  document.querySelectorAll('[data-close-form]').forEach(function (btn) {
+    btn.addEventListener('click', function () { modal.classList.remove('is-open'); });
+  });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('is-open'); });
+</script>
+<script src="/js/main.js"></script>
+</body>
+</html>
