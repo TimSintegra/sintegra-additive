@@ -54,58 +54,114 @@
         <h2 class="h2"><span class="nowrap">Пластик</span> или <span class="nowrap">металл</span>: сравнение технологий</h2>
         <p class="lead">Выберите технологию под свою задачу — сравните ключевые параметры двух направлений.</p>
       </div>
-      <div class="compare reveal">
-        <div class="compare__vs">VS</div>
-        <article class="compare__col">
-          <div class="compare__photo compare__photo--contain" style="background:linear-gradient(180deg,#fff, #eef1f6)">
-            <img src="/img/st-530.png" alt="FDM-принтер Stereotech 530 для 3D-печати пластиком" loading="lazy" width="360" height="360">
+      <div class="compare-cards reveal">
+        <article class="compare-card compare-card--plastic">
+          <div class="compare-card__media" style="background:linear-gradient(180deg,#fff, #eef1f6)">
+            <img src="/img/st-530.png" alt="FDM-принтер Stereotech 530" loading="lazy" width="360" height="360">
             <span class="compare__tag">Пластик · FDM/FFF</span>
           </div>
-          <div class="compare__body">
-            <h3 class="compare__title">Пластик — FDM/FFF</h3>
-            <p class="compare__sub">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
-            <dl class="compare__rows">
-              <div><dt>Технология</dt><dd>FDM/FFF — послойное наплавление нити</dd></div>
-              <div><dt>Оборудование</dt><dd>Stereotech 530 Fiber/Hybrid · Bambu Lab X1 Carbon</dd></div>
-              <div><dt>Рабочая область</dt><dd><span class="nowrap">300×300×300</span> и <span class="nowrap">256×256×256</span> мм</dd></div>
-              <div><dt>Толщина слоя</dt><dd>от 0,05–0,06 мм</dd></div>
-              <div><dt>Материалы</dt><dd>PLA, PETG, ABS, ASA, TPU, PA, PC, композиты с волокном</dd></div>
-              <div><dt>Типовые применения</dt><dd>прототипы, корпуса, шестерни, мембраны, ролики, оснастка</dd></div>
-              <div><dt>Преимущества</dt><dd>скорость изготовления, доступная стоимость, широкий выбор материалов</dd></div>
-            </dl>
-            <div class="compare__media">
+          <div class="compare-card__body">
+            <h3 class="compare-card__title">Пластик — FDM/FFF</h3>
+            <p class="compare-card__sub">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
+            <div class="compare-card__tabs" data-compare-tabs="plastic">
+              <button class="compare-tab is-active" data-material="pla">PLA</button>
+              <button class="compare-tab" data-material="petg">PETG</button>
+              <button class="compare-tab" data-material="abs">ABS/ASA</button>
+              <button class="compare-tab" data-material="tpu">TPU</button>
+              <button class="compare-tab" data-material="pa">PA/PC</button>
+              <button class="compare-tab" data-material="composites">Композиты</button>
+            </div>
+            <div class="compare-card__specs">
+              <div class="compare-spec">
+                <span class="compare-spec__label">Технология</span>
+                <span class="compare-spec__value">FDM/FFF — послойное наплавление нити</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Оборудование</span>
+                <span class="compare-spec__value" data-plastic-field="equipment">Stereotech 530 Fiber/Hybrid · Bambu Lab X1 Carbon</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Рабочая область</span>
+                <span class="compare-spec__value">300×300×300 и 256×256×256 мм</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Толщина слоя</span>
+                <span class="compare-spec__value" data-plastic-field="accuracy">от 0,05–0,06 мм</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Материалы</span>
+                <span class="compare-spec__value">PLA, PETG, ABS, ASA, TPU, PA, PC, композиты с волокном</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Типовые применения</span>
+                <span class="compare-spec__value" data-plastic-field="applications">прототипы, корпуса, шестерни, мембраны, ролики, оснастка</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Преимущества</span>
+                <span class="compare-spec__value" data-plastic-field="advantages">скорость изготовления, доступная стоимость, широкий выбор материалов</span>
+              </div>
+            </div>
+            <div class="compare-card__gallery">
               <img src="/img/print-1.png" alt="Мембраны насосов из TPU" loading="lazy">
               <img src="/img/print-5.png" alt="Рабочие колёса насосов" loading="lazy">
-              <img src="/img/print-7.png" alt="Шестерни, в том числе конические" loading="lazy">
+              <img src="/img/print-7.png" alt="Шестерни" loading="lazy">
             </div>
-            <div class="compare__foot">
+            <div class="compare-card__foot">
               <a href="#plastic" class="btn btn--dark btn--sm">Материалы и параметры</a>
             </div>
           </div>
         </article>
-        <article class="compare__col compare__col--metal">
-          <div class="compare__photo">
-            <img src="/img/hbd-p400-removebg-preview.png" srcset width="768" height="1024" alt="Промышленный SLM-принтер HBD P400 для 3D-печати металлом" loading="lazy">
+        <article class="compare-card compare-card--metal">
+          <div class="compare-card__media">
+            <img src="/img/hbd-p400-removebg-preview.png" width="768" height="1024" alt="Промышленный SLM-принтер HBD P400" loading="lazy">
             <span class="compare__tag">Металл · SLM/LPBF</span>
           </div>
-          <div class="compare__body">
-            <h3 class="compare__title">Металл — SLM/LPBF</h3>
-            <p class="compare__sub">Селективное лазерное сплавление металлических порошков. Промышленные компоненты, сложная геометрия, мелкие серии.</p>
-            <dl class="compare__rows">
-              <div><dt>Технология</dt><dd>SLM/LPBF — лазерное сплавление порошка</dd></div>
-              <div><dt>Оборудование</dt><dd>HBD P400 · 4–6 лазеров 500/1000 Вт</dd></div>
-              <div><dt>Рабочая область</dt><dd><span class="nowrap">350×400×400</span> мм</dd></div>
-              <div><dt>Толщина слоя</dt><dd>20–120 мкм · точность 0,05–0,2 мм</dd></div>
-              <div><dt>Материалы</dt><dd>титан, нержавеющая сталь, алюминий, жаропрочные сплавы, CoCr</dd></div>
-              <div><dt>Типовые применения</dt><dd>корпуса, оснастка, детали с внутренними каналами, промышленные компоненты</dd></div>
-              <div><dt>Преимущества</dt><dd>сложная геометрия, плотность &gt; 99,9%, прочность после печати</dd></div>
-            </dl>
-            <div class="compare__media">
-              <img src="/img/korpus-kompressora.jpg" srcset="/img/korpus-kompressora.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Корпус компрессора из алюминиевого сплава" loading="lazy">
-              <img src="/img/photo_2026-06-23_15-00-04.jpg" srcset="/img/photo_2026-06-23_15-00-04.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
-              <img src="/img/photo_2026-06-24_14-54-05.jpg" srcset="/img/photo_2026-06-24_14-54-05.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
+          <div class="compare-card__body">
+            <h3 class="compare-card__title">Металл — SLM/LPBF</h3>
+            <p class="compare-card__sub">Селективное лазерное сплавление металлических порошков. Промышленные компоненты, сложная геометрия, мелкие серии.</p>
+            <div class="compare-card__tabs" data-compare-tabs="metal">
+              <button class="compare-tab is-active" data-material="steel">Нержавеющая сталь</button>
+              <button class="compare-tab" data-material="titanium">Титан</button>
+              <button class="compare-tab" data-material="aluminum">Алюминий</button>
+              <button class="compare-tab" data-material="inconel">Жаропрочный сплав</button>
+              <button class="compare-tab" data-material="cobalt">Кобальт-хром</button>
             </div>
-            <div class="compare__foot">
+            <div class="compare-card__specs">
+              <div class="compare-spec">
+                <span class="compare-spec__label">Технология</span>
+                <span class="compare-spec__value">SLM/LPBF — лазерное сплавление порошка</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Оборудование</span>
+                <span class="compare-spec__value" data-metal-field="equipment">HBD P400 · 4–6 лазеров 500/1000 Вт</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Рабочая область</span>
+                <span class="compare-spec__value">350×400×400 мм</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Толщина слоя</span>
+                <span class="compare-spec__value" data-metal-field="accuracy">20–120 мкм · точность 0,05–0,2 мм</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Материалы</span>
+                <span class="compare-spec__value">титан, нержавеющая сталь, алюминий, жаропрочные сплавы, CoCr</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Типовые применения</span>
+                <span class="compare-spec__value" data-metal-field="applications">корпуса, оснастка, детали с внутренними каналами, промышленные компоненты</span>
+              </div>
+              <div class="compare-spec">
+                <span class="compare-spec__label">Преимущества</span>
+                <span class="compare-spec__value" data-metal-field="advantages">сложная геометрия, плотность &gt; 99,9%, прочность после печати</span>
+              </div>
+            </div>
+            <div class="compare-card__gallery">
+              <img src="/img/korpus-kompressora.jpg" srcset="/img/korpus-kompressora.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Корпус компрессора" loading="lazy">
+              <img src="/img/photo_2026-06-23_15-00-04.jpg" srcset="/img/photo_2026-06-23_15-00-04.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие" loading="lazy">
+              <img src="/img/photo_2026-06-24_14-54-05.jpg" srcset="/img/photo_2026-06-24_14-54-05.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие" loading="lazy">
+            </div>
+            <div class="compare-card__foot">
               <a href="#metal" class="btn btn--light btn--sm">Порошки и характеристики</a>
             </div>
           </div>
@@ -201,7 +257,7 @@
           <a href="/equipment.html" class="btn btn--light">Подробнее об HBD P400</a>
         </div>
         <div class="service-block__media drop reveal">
-          <img src="/img/hbd-p400-removebg-preview.png" srcset width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом" loading="lazy">
+           <img src="/img/hbd-p400-removebg-preview.png" width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом" loading="lazy">
         </div>
       </div>
 

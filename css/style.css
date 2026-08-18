@@ -308,6 +308,8 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
 .compare-card--metal .compare-spec__label { color: #8fa8e0; }
 .compare-card--metal .compare-spec__value { color: #cdd3dd; }
 .compare-card__foot { margin-top: auto; }
+.compare-card__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+.compare-card__gallery img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; display: block; }
 
 /* ---------- tabs ---------- */
 .tabs__nav { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
@@ -504,6 +506,7 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
   .spec-table { font-size: 13px; }
   .spec-table th, .spec-table td { padding: 12px 14px; white-space: normal !important; }
   .compare-spec { grid-template-columns: 1fr; gap: 2px; }
+  .compare-card__gallery { grid-template-columns: repeat(2, 1fr); }
   .footer__inner { grid-template-columns: 1fr; gap: 28px; }
   .mobile-bar {
     display: grid; grid-template-columns: 1fr 1fr 1fr;

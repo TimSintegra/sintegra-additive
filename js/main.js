@@ -49,19 +49,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------- сравнение: переключатели материалов ---------- */
   var plasticData = {
-    pla: { equipment: 'Stereotech 530, Bambu Lab X1 Carbon', area: '300×300×300 и 256×256×256 мм', accuracy: 'слой от 0,05 мм', temp: '190–220 °C', strength: 'Средняя', applications: 'прототипы, корпуса, шестерни, мембраны, ролики' },
-    petg: { equipment: 'Stereotech 530, Bambu Lab X1 Carbon', area: '300×300×300 и 256×256×256 мм', accuracy: 'слой от 0,05 мм', temp: '220–250 °C', strength: 'Высокая', applications: 'функциональные детали, посуда, детали для улицы' },
-    abs: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '230–260 °C', strength: 'Высокая', applications: 'оснастка, автодетали, корпуса' },
-    tpu: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '200–230 °C', strength: 'Гибкая', applications: 'прокладки, амортизаторы, ремни, шланги' },
-    pa: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '240–270 °C', strength: 'Очень высокая', applications: 'шестерни, подшипники, детали с трением' },
-    pc: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '260–300 °C', strength: 'Очень высокая', applications: 'прототипы, электротехника, детали с высокой нагрузкой' }
+    pla: { equipment: 'Stereotech 530, Bambu Lab X1 Carbon', area: '300×300×300 и 256×256×256 мм', accuracy: 'слой от 0,05 мм', temp: '190–220 °C', strength: 'Средняя', applications: 'прототипы, корпуса, шестерни, мембраны, ролики', advantages: 'доступная стоимость, скорость изготовления, простота печати' },
+    petg: { equipment: 'Stereotech 530, Bambu Lab X1 Carbon', area: '300×300×300 и 256×256×256 мм', accuracy: 'слой от 0,05 мм', temp: '220–250 °C', strength: 'Высокая', applications: 'функциональные детали, посуда, детали для улицы', advantages: 'прочность, устойчивость к влаге, химическая стойкость' },
+    abs: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '230–260 °C', strength: 'Высокая', applications: 'оснастка, автодетали, корпуса', advantages: 'УФ-стойкость, температурная стабильность, прочность' },
+    tpu: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '200–230 °C', strength: 'Гибкая', applications: 'прокладки, амортизаторы, ремни, шланги', advantages: 'эластичность, амортизация, устойчивость к износу' },
+    pa: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '240–270 °C', strength: 'Очень высокая', applications: 'шестерни, подшипники, детали с трением', advantages: 'износостойкость, высокая прочность, термостабильность' },
+    pc: { equipment: 'Stereotech 530', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '260–300 °C', strength: 'Очень высокая', applications: 'прототипы, электротехника, детали с высокой нагрузкой', advantages: 'термостойкость, прочность, электротехнические свойства' },
+    composites: { equipment: 'Stereotech 530 Fiber/Hybrid', area: '300×300×300 мм', accuracy: 'слой от 0,05 мм', temp: '230–280 °C', strength: 'Очень высокая', applications: 'нагруженные конструкции, aerospace, автомобилестроение', advantages: 'прочность до 300% выше, жёсткость, лёгкость' }
   };
   var metalData = {
-    steel: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Высокая', applications: 'корпуса, оснастка, детали с внутренними каналами' },
-    titanium: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'авиация, медицина, высоконагруженные детали' },
-    aluminum: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,5%', hardness: 'Средняя', applications: 'автомобилестроение, радиаторы, корпуса' },
-    inconel: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'турбины, двигатели, высокотемпературные узлы' },
-    cobalt: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'стоматология, импланты, рабочие инструменты' }
+    steel: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Высокая', applications: 'корпуса, оснастка, детали с внутренними каналами', advantages: 'коррозионная стойкость, доступность, универсальность' },
+    titanium: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'авиация, медицина, высоконагруженные детали', advantages: 'высокая прочность при малом весе, биосовместимость' },
+    aluminum: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,5%', hardness: 'Средняя', applications: 'автомобилестроение, радиаторы, корпуса', advantages: 'лёгкость, теплопроводность, коррозионная стойкость' },
+    inconel: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'турбины, двигатели, высокотемпературные узлы', advantages: 'жаростойкость, коррозионная стойкость при высоких температурах' },
+    cobalt: { equipment: 'HBD P400, 4–6 лазеров 500/1000 Вт', area: '350×400×400 мм', accuracy: '0,05–0,2 мм · слой 20–120 мкм', density: '> 99,9%', hardness: 'Очень высокая', applications: 'стоматология, импланты, рабочие инструменты', advantages: 'износостойкость, высокая твёрдость, биосовместимость' }
   };
   document.querySelectorAll('[data-compare-tabs]').forEach(function (wrap) {
     var btns = wrap.querySelectorAll('.compare-tab');
