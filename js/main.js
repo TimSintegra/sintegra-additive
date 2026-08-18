@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         name: form.querySelector('input[name=name]'),
         phone: form.querySelector('input[name=phone]'),
         email: form.querySelector('input[name=email]'),
-        task: form.querySelector('textarea[name=task]'),
+        task: form.querySelector('input[name=task]'),
         comment: form.querySelector('textarea[name=comment]'),
         consent: form.querySelector('input[name=consent]')
       };

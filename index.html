@@ -54,7 +54,7 @@
         <div class="hero__meta">
           <div class="hero__meta-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Нижнекамск, БСИ, ул. Заводская 3&nbsp;В
+            Нижнекамск, ул. Заводская 3&nbsp;В
           </div>
           <div class="hero__meta-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
@@ -63,7 +63,9 @@
         </div>
       </div>
       <div class="hero__media">
-        <img src="/img/hbd-p400.jpg" alt="Промышленный 3D-принтер HBD P400 для печати металлом">
+        <div class="hero__photo">
+          <img src="/img/hbd-p400.jpg" srcset="/img/hbd-p400.webp 768w" sizes="(max-width: 768px) 90vw, 520px" width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом" onerror="this.onerror=null;this.src='/img/hbd-p400-cutout.png'">
+        </div>
         <div class="hero__media-chip"><b>HBD P400</b>Промышленная 3D-печать металлом (SLM)</div>
       </div>
     </div>
@@ -96,9 +98,9 @@
             <p class="card__text">Восстановление чертежей и CAD-моделей по физическому образцу, модернизация существующих конструкций.</p>
           </div>
           <div class="card reveal">
-            <div class="card__icon">🔬</div>
-            <h3 class="card__title">Медицинские изделия</h3>
-            <p class="card__text">Индивидуальные импланты из титанового сплава TC4 с пористой структурой для остеоинтеграции.</p>
+            <div class="card__icon">📦</div>
+            <h3 class="card__title">Мелкосерийное производство</h3>
+            <p class="card__text">От единичных изделий до небольших партий без затрат на оснастку — печать металлом и пластиком под вашу задачу.</p>
           </div>
         </div>
       </div>
@@ -108,7 +110,7 @@
   <!-- ======== 3D-печать ======== -->
   <div class="container">
     <div class="service-block">
-      <div class="service-block__media reveal">
+      <div class="service-block__media drop reveal">
         <img src="/img/print-1.png" alt="Изделия, изготовленные методом 3D-печати пластиком" loading="lazy">
       </div>
       <div class="service-block__content reveal">
@@ -126,37 +128,63 @@
     <div class="section" style="padding-top:0">
       <div class="section__head reveal">
         <span class="eyebrow">Технологии</span>
-        <h2 class="h2">Пластик и металл — два направления, два подхода</h2>
+        <h2 class="h2"><span class="nowrap">Пластик</span> или <span class="nowrap">металл</span> — сравнение технологий</h2>
+        <p class="lead">Два направления, два подхода. Сравните, что подходит именно под вашу задачу.</p>
       </div>
-      <div class="grid grid--2">
-        <div class="card reveal">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-            <div class="card__icon" style="margin:0">🧪</div>
-            <h3 class="h3" style="font-size:22px">Пластик · FDM/FFF</h3>
+      <div class="compare reveal">
+        <div class="compare__vs">VS</div>
+        <article class="compare__col">
+          <div class="compare__photo compare__photo--contain" style="background:linear-gradient(180deg,#fff, #eef1f6)">
+            <img src="/img/st-530.png" alt="FDM-принтер Stereotech 530 для 3D-печати пластиком" loading="lazy" width="360" height="360">
+            <span class="compare__tag">Пластик · FDM/FFF</span>
           </div>
-          <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-            <li>PLA — прототипы, макеты, тестовые изделия</li>
-            <li>PETG, ABS, ASA — функциональные детали и корпуса</li>
-            <li>TPU — уплотнения, демпферы, гибкие элементы</li>
-            <li>PA (нейлон), PC — инженерные пластики</li>
-            <li>Композиты с коротким волокном и углеволокном</li>
-          </ul>
-          <a href="/printing.html#plastic" class="btn btn--dark btn--sm">Подробнее о пластике</a>
-        </div>
-        <div class="card reveal" style="background:var(--graphite);border-color:var(--graphite);color:#fff">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
-            <div class="card__icon" style="margin:0;background:rgba(255,255,255,.1);color:#8fa8e0">🏭</div>
-            <h3 class="h3" style="font-size:22px">Металл · SLM/LPBF</h3>
+          <div class="compare__body">
+            <h3 class="compare__title">Пластик — FDM/FFF</h3>
+            <p class="compare__sub">Послойное наплавление. Прототипы, функциональные детали, оснастка, мелкие серии.</p>
+            <dl class="compare__rows">
+              <div><dt>Оборудование</dt><dd>Stereotech 530, Bambu Lab X1 Carbon</dd></div>
+              <div><dt>Рабочая область</dt><dd><span class="nowrap">300×300×300</span> и <span class="nowrap">256×256×256</span> мм</dd></div>
+              <div><dt>Точность</dt><dd>слой от 0,05 мм</dd></div>
+              <div><dt>Материалы</dt><dd>PLA, PETG, ABS, TPU, PA, PC, композиты</dd></div>
+              <div><dt>Типовые применения</dt><dd>прототипы, корпуса, шестерни, мембраны, ролики</dd></div>
+              <div><dt>Преимущества</dt><dd>скорость, доступная цена, широкий выбор материалов</dd></div>
+            </dl>
+            <div class="compare__media">
+              <img src="/img/print-1.png" alt="Мембраны насосов из TPU" loading="lazy">
+              <img src="/img/print-5.png" alt="Рабочие колёса насосов" loading="lazy">
+              <img src="/img/print-7.png" alt="Шестерни" loading="lazy">
+            </div>
+            <div class="compare__foot">
+              <a href="/printing.html#plastic" class="btn btn--dark btn--sm">Подробнее о пластике</a>
+            </div>
           </div>
-          <ul style="display:grid;gap:8px;color:#aeb6c4;font-size:14.5px;margin-bottom:20px">
-            <li>Титан TC4, TA15 — прочность и малый вес, медицина</li>
-            <li>Нержавеющая сталь 316L, 17-4PH — корпуса, оснастка</li>
-            <li>Алюминий AlSi10Mg — лёгкие конструкции</li>
-            <li>Жаропрочные сплавы GH4169 — энергетика, авиация</li>
-            <li>Порошковые инструментальные стали 18Ni300</li>
-          </ul>
-          <a href="/printing.html#metal" class="btn btn--light btn--sm">Подробнее о металле</a>
-        </div>
+        </article>
+        <article class="compare__col compare__col--metal">
+          <div class="compare__photo">
+            <img src="/img/hbd-p400.jpg" srcset="/img/hbd-p400.webp 768w" sizes="(max-width: 768px) 90vw, 520px" width="768" height="1024" alt="Промышленный SLM-принтер HBD P400 для 3D-печати металлом" loading="lazy" onerror="this.onerror=null;this.src='/img/hbd-p400-cutout.png'">
+            <span class="compare__tag">Металл · SLM/LPBF</span>
+          </div>
+          <div class="compare__body">
+            <h3 class="compare__title">Металл — SLM/LPBF</h3>
+            <p class="compare__sub">Лазерное сплавление металлических порошков. Промышленные компоненты и сложная геометрия.</p>
+            <dl class="compare__rows">
+              <div><dt>Оборудование</dt><dd>HBD P400, 4–6 лазеров 500/1000 Вт</dd></div>
+              <div><dt>Рабочая область</dt><dd><span class="nowrap">350×400×400</span> мм</dd></div>
+              <div><dt>Точность</dt><dd>0,05–0,2 мм · слой 20–120 мкм</dd></div>
+              <div><dt>Материалы</dt><dd>титан, нержавеющая сталь, алюминий, жаропрочные сплавы</dd></div>
+              <div><dt>Типовые применения</dt><dd>корпуса, оснастка, детали с внутренними каналами</dd></div>
+              <div><dt>Преимущества</dt><dd>сложная геометрия, прочность, плотность &gt; 99,9%</dd></div>
+            </dl>
+            <div class="compare__media">
+              <img src="/img/korpus-kompressora.jpg" srcset="/img/korpus-kompressora.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Корпус компрессора из алюминиевого сплава" loading="lazy">
+              <img src="/img/photo_2026-06-23_15-00-04.jpg" srcset="/img/photo_2026-06-23_15-00-04.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
+              <img src="/img/photo_2026-06-24_14-54-05.jpg" srcset="/img/photo_2026-06-24_14-54-05.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
+            </div>
+            <div class="compare__foot">
+              <a href="/printing.html#metal" class="btn btn--light btn--sm">Подробнее о металле</a>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </div>
@@ -171,8 +199,8 @@
         <p style="color:var(--ink-soft);margin-bottom:24px">Печатаем титан, нержавеющую и инструментальную сталь, алюминиевые и жаропрочные сплавы. Толщина слоя 20–120 мкм, характерная точность 0,05–0,2 мм, относительная плотность изделий более 99,9%.</p>
         <a href="/equipment.html" class="btn btn--primary">Страница HBD P400</a>
       </div>
-      <div class="service-block__media reveal">
-        <img src="/img/hbd-p400.jpg" alt="Промышленный 3D-принтер HBD P400" loading="lazy">
+      <div class="service-block__media drop reveal">
+        <img src="/img/hbd-p400.jpg" srcset="/img/hbd-p400.webp 768w" sizes="(max-width: 768px) 90vw, 480px" width="768" height="1024" alt="Промышленный 3D-принтер HBD P400" loading="lazy" onerror="this.onerror=null;this.src='/img/hbd-p400-cutout.png'">
       </div>
     </div>
   </div>
@@ -467,7 +495,7 @@
             <div class="contact-card__icon">🏭</div>
             <div>
               <h3 class="contact-card__title">Офис и производственная база</h3>
-              <p class="contact-card__text">Республика Татарстан, г. Нижнекамск, БСИ, ул. Заводская 3&nbsp;В<br>
+              <p class="contact-card__text">Республика Татарстан, г. Нижнекамск, ул. Заводская 3&nbsp;В<br>
                 <a href="tel:+788555244830">8-8555-24-48-30</a><br>
                 <a href="mailto:info@s-nk.su">info@s-nk.su</a></p>
             </div>
@@ -528,7 +556,7 @@
         <div class="footer__contacts">
           <a href="tel:+788555244830">8-8555-24-48-30</a>
           <a href="mailto:info@s-nk.su">info@s-nk.su</a>
-          <span style="color:#8f97a6;font-size:14px">г. Нижнекамск, БСИ, ул. Заводская 3&nbsp;В</span>
+          <span style="color:#8f97a6;font-size:14px">г. Нижнекамск, ул. Заводская 3&nbsp;В</span>
           <span style="color:#8f97a6;font-size:14px">г. Москва, ул. Матросская Тишина, 23с1</span>
         </div>
       </div>

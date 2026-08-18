@@ -41,214 +41,270 @@
   <section class="page-hero">
     <div class="container">
       <div class="page-hero__crumbs"><a href="/">Главная</a> / 3D-печать</div>
-      <h1 class="h1" style="margin-bottom:16px">3D-печать на заказ</h1>
+      <h1 class="h1" style="margin-bottom:16px"><span class="nowrap">3D-печать</span> на заказ</h1>
       <p class="lead">Прототипы и изделия из пластика и металла. Мы создаем изделия с помощью передовых технологий — это позволяет обеспечить высокую точность и качество при работе со сложными формами.</p>
     </div>
   </section>
 
-  <!-- ======== Пластик | Металл switch ======== -->
+  <!-- ======== Пластик | Металл сравнение ======== -->
   <section class="section">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">Направления</span>
-        <h2 class="h2">Пластик или металл?</h2>
+        <h2 class="h2"><span class="nowrap">Пластик</span> или <span class="nowrap">металл</span>: сравнение технологий</h2>
+        <p class="lead">Выберите технологию под свою задачу — сравните ключевые параметры двух направлений.</p>
       </div>
-      <div class="tabs reveal" data-tabs>
-        <div class="tabs__nav">
-          <button class="tabs__btn is-active" data-panel="tab-plastic" type="button">Пластик · FDM/FFF</button>
-          <button class="tabs__btn" data-panel="tab-metal" type="button">Металл · SLM/LPBF</button>
+      <div class="compare reveal">
+        <div class="compare__vs">VS</div>
+        <article class="compare__col">
+          <div class="compare__photo compare__photo--contain" style="background:linear-gradient(180deg,#fff, #eef1f6)">
+            <img src="/img/st-530.png" alt="FDM-принтер Stereotech 530 для 3D-печати пластиком" loading="lazy" width="360" height="360">
+            <span class="compare__tag">Пластик · FDM/FFF</span>
+          </div>
+          <div class="compare__body">
+            <h3 class="compare__title">Пластик — FDM/FFF</h3>
+            <p class="compare__sub">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
+            <dl class="compare__rows">
+              <div><dt>Технология</dt><dd>FDM/FFF — послойное наплавление нити</dd></div>
+              <div><dt>Оборудование</dt><dd>Stereotech 530 Fiber/Hybrid · Bambu Lab X1 Carbon</dd></div>
+              <div><dt>Рабочая область</dt><dd><span class="nowrap">300×300×300</span> и <span class="nowrap">256×256×256</span> мм</dd></div>
+              <div><dt>Толщина слоя</dt><dd>от 0,05–0,06 мм</dd></div>
+              <div><dt>Материалы</dt><dd>PLA, PETG, ABS, ASA, TPU, PA, PC, композиты с волокном</dd></div>
+              <div><dt>Типовые применения</dt><dd>прототипы, корпуса, шестерни, мембраны, ролики, оснастка</dd></div>
+              <div><dt>Преимущества</dt><dd>скорость изготовления, доступная стоимость, широкий выбор материалов</dd></div>
+            </dl>
+            <div class="compare__media">
+              <img src="/img/print-1.png" alt="Мембраны насосов из TPU" loading="lazy">
+              <img src="/img/print-5.png" alt="Рабочие колёса насосов" loading="lazy">
+              <img src="/img/print-7.png" alt="Шестерни, в том числе конические" loading="lazy">
+            </div>
+            <div class="compare__foot">
+              <a href="#plastic" class="btn btn--dark btn--sm">Материалы и параметры</a>
+            </div>
+          </div>
+        </article>
+        <article class="compare__col compare__col--metal">
+          <div class="compare__photo">
+            <img src="/img/hbd-p400.jpg" srcset="/img/hbd-p400.webp 768w" sizes="(max-width: 768px) 90vw, 520px" width="768" height="1024" alt="Промышленный SLM-принтер HBD P400 для 3D-печати металлом" loading="lazy" onerror="this.onerror=null;this.src='/img/hbd-p400-cutout.png'">
+            <span class="compare__tag">Металл · SLM/LPBF</span>
+          </div>
+          <div class="compare__body">
+            <h3 class="compare__title">Металл — SLM/LPBF</h3>
+            <p class="compare__sub">Селективное лазерное сплавление металлических порошков. Промышленные компоненты, сложная геометрия, мелкие серии.</p>
+            <dl class="compare__rows">
+              <div><dt>Технология</dt><dd>SLM/LPBF — лазерное сплавление порошка</dd></div>
+              <div><dt>Оборудование</dt><dd>HBD P400 · 4–6 лазеров 500/1000 Вт</dd></div>
+              <div><dt>Рабочая область</dt><dd><span class="nowrap">350×400×400</span> мм</dd></div>
+              <div><dt>Толщина слоя</dt><dd>20–120 мкм · точность 0,05–0,2 мм</dd></div>
+              <div><dt>Материалы</dt><dd>титан, нержавеющая сталь, алюминий, жаропрочные сплавы, CoCr</dd></div>
+              <div><dt>Типовые применения</dt><dd>корпуса, оснастка, детали с внутренними каналами, промышленные компоненты</dd></div>
+              <div><dt>Преимущества</dt><dd>сложная геометрия, плотность &gt; 99,9%, прочность после печати</dd></div>
+            </dl>
+            <div class="compare__media">
+              <img src="/img/korpus-kompressora.jpg" srcset="/img/korpus-kompressora.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Корпус компрессора из алюминиевого сплава" loading="lazy">
+              <img src="/img/photo_2026-06-23_15-00-04.jpg" srcset="/img/photo_2026-06-23_15-00-04.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
+              <img src="/img/photo_2026-06-24_14-54-05.jpg" srcset="/img/photo_2026-06-24_14-54-05.webp 960w" sizes="(max-width: 768px) 90vw, 200px" width="960" height="1280" alt="Металлическое изделие, напечатанное методом SLM" loading="lazy">
+            </div>
+            <div class="compare__foot">
+              <a href="#metal" class="btn btn--light btn--sm">Порошки и характеристики</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Направление 1: Пластик ======== -->
+  <section class="section section--alt" id="plastic">
+    <div class="container">
+      <div class="service-block" style="padding-top:0">
+        <div class="service-block__content reveal">
+          <span class="eyebrow">Направление 1 · Пластик</span>
+          <h2 class="h2">FDM — прочные и доступные изделия</h2>
+          <p class="lead" style="margin-bottom:16px">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
+          <ul style="display:grid;gap:10px;color:var(--ink-soft);margin-bottom:24px">
+            <li><b style="color:var(--ink)">Преимущества:</b> доступная стоимость, широкий выбор материалов, скорость от идеи до изделия.</li>
+            <li><b style="color:var(--ink)">Оборудование:</b> Stereotech 530 Fiber/Hybrid (рабочая область 300×300×300 мм) и Bambu Lab X1 Carbon (256×256×256 мм).</li>
+            <li><b style="color:var(--ink)">Точность:</b> толщина слоя от 0,05–0,06 мм.</li>
+          </ul>
+          <a href="#plastic-materials" class="btn btn--primary">Материалы</a>
         </div>
-
-        <!-- ПЛАСТИК -->
-        <div class="tabs__panel is-active" id="tab-plastic">
-          <div class="service-block" style="padding-top:0">
-            <div class="service-block__content">
-              <span class="eyebrow">Пластик</span>
-              <h2 class="h2">FDM — прочные и доступные изделия</h2>
-              <p class="lead" style="margin-bottom:16px">Послойное наплавление пластика. Быстрое прототипирование, функциональные детали, оснастка и мелкие серии.</p>
-              <ul style="display:grid;gap:10px;color:var(--ink-soft);margin-bottom:24px">
-                <li><b style="color:var(--ink)">Преимущества:</b> доступная стоимость, широкий выбор материалов, скорость от идеи до изделия.</li>
-                <li><b style="color:var(--ink)">Оборудование:</b> Stereotech 530 Fiber/Hybrid (рабочая область 300×300×300 мм) и Bambu Lab X1 Carbon (256×256×256 мм).</li>
-                <li><b style="color:var(--ink)">Точность:</b> толщина слоя от 0,05–0,06 мм.</li>
-              </ul>
-              <a href="#plastic-materials" class="btn btn--primary">Материалы</a>
-            </div>
-            <div class="service-block__media">
-              <img src="/img/st-530.png" alt="Промышленный 3D-принтер Stereotech 530" loading="lazy">
-            </div>
-          </div>
-
-          <h3 class="h3" id="plastic-materials" style="margin:32px 0 20px">Пластики, с которыми мы работаем</h3>
-          <div class="grid grid--3">
-            <div class="card reveal">
-              <h3 class="card__title">PLA</h3>
-              <p class="card__text">Прототипирование, макеты, визуальные модели, тестовые изделия.</p>
-            </div>
-            <div class="card reveal">
-              <h3 class="card__title">PETG</h3>
-              <p class="card__text">Функциональные детали, корпуса, элементы, которым требуется повышенная прочность.</p>
-            </div>
-            <div class="card reveal">
-              <h3 class="card__title">ABS / ASA</h3>
-              <p class="card__text">Прочные детали, работающие на улице. Устойчивость к УФ и температурам.</p>
-            </div>
-            <div class="card reveal">
-              <h3 class="card__title">TPU</h3>
-              <p class="card__text">Гибкие изделия: уплотнения, демпферы, эластичные муфты, ремни, ролики.</p>
-            </div>
-            <div class="card reveal">
-              <h3 class="card__title">PA (нейлон) / PC</h3>
-              <p class="card__text">Инженерные пластики для нагруженных деталей, шестерён и механизмов.</p>
-            </div>
-            <div class="card reveal">
-              <h3 class="card__title">Композиты</h3>
-              <p class="card__text">Пластики с коротким волокном (стекло/углерод) и непрерывным углеволокном — прочность до 300% выше.</p>
-            </div>
-          </div>
-          <div class="reveal" style="margin-top:40px">
-            <div class="card">
-              <h3 class="card__title" style="margin-bottom:12px">Параметры нашего FDM-оборудования</h3>
-              <div style="overflow-x:auto">
-              <table class="spec-table" style="min-width:680px">
-                <thead><tr><th></th><th>Stereotech 530 Fiber/Hybrid</th><th>Bambu Lab X1 Carbon</th></tr></thead>
-                <tbody>
-                  <tr><td>Технология</td><td>FDM + 5D (пятиосевая печать), армирование непрерывным углеволокном</td><td>FDM, высокоскоростная печать</td></tr>
-                  <tr><td>Рабочая область</td><td>300 × 300 × 300 мм</td><td>256 × 256 × 256 мм</td></tr>
-                  <tr><td>Экструдеры</td><td>2</td><td>1 (до 4 материалов с AMS)</td></tr>
-                  <tr><td>Мин. толщина слоя</td><td>0,05 мм</td><td>0,06 мм</td></tr>
-                  <tr><td>Темп. экструдера</td><td>до 350 °C</td><td>до 300 °C</td></tr>
-                  <tr><td>Скорость печати</td><td>5–150 мм/с</td><td>до 500 мм/с</td></tr>
-                  <tr><td>Диаметр сопла</td><td>0,1–1,0 мм</td><td>0,2–0,6 мм</td></tr>
-                  <tr><td>Филаменты</td><td>PLA, PVA, ABS, SBS, PETG, TPU, PP, PA6, PA12, PC, композиты с волокном, WAX3D, Ultrafuse 316L (печать металлом)</td><td>PLA, PETG, TPU, ABS, ASA, PVA, PET, PA, PC, композиты с углеродным и стекловолокном</td></tr>
-                </tbody>
-              </table>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:32px"><a href="/portfolio.html" class="btn btn--dark">Примеры изделий</a></div>
+        <div class="service-block__media drop reveal">
+          <img src="/img/bambu-x1c.png" alt="3D-принтер Bambu Lab X1 Carbon" loading="lazy" width="410" height="547">
         </div>
+      </div>
 
-        <!-- МЕТАЛЛ -->
-        <div class="tabs__panel" id="tab-metal">
-          <div class="service-block" style="padding-top:0">
-            <div class="service-block__content">
-              <span class="eyebrow">Металл</span>
-              <h2 class="h2">SLM / LPBF — промышленная металлическая печать</h2>
-              <p class="lead" style="margin-bottom:16px">Селективное лазерное сплавление металлических порошков на HBD P400: 350×400×400 мм, 4–6 лазеров, плотность изделий до 99,9%.</p>
-              <ul style="display:grid;gap:10px;color:var(--ink-soft);margin-bottom:24px">
-                <li><b style="color:var(--ink)">Зачем:</b> сложная геометрия, внутренние каналы, мелкосерийное производство без оснастки.</li>
-                <li><b style="color:var(--ink)">Точность:</b> характерная 0,05–0,2 мм, слой 20–120 мкм.</li>
-                <li><b style="color:var(--ink)">Типичные изделия:</b> корпуса, оснастка, прототипы, промышленные компоненты, медицинские импланты.</li>
-              </ul>
-              <a href="/equipment.html" class="btn btn--dark">Подробнее об HBD P400</a>
-            </div>
-            <div class="service-block__media">
-              <img src="/img/hbd-p400.jpg" alt="Промышленный 3D-принтер HBD P400 для печати металлом" loading="lazy">
-            </div>
+      <h3 class="h3" id="plastic-materials" style="margin:32px 0 20px">Пластики, с которыми мы работаем</h3>
+      <div class="grid grid--3">
+        <div class="card reveal">
+          <h3 class="card__title">PLA</h3>
+          <p class="card__text">Прототипирование, макеты, визуальные модели, тестовые изделия.</p>
+        </div>
+        <div class="card reveal">
+          <h3 class="card__title">PETG</h3>
+          <p class="card__text">Функциональные детали, корпуса, элементы, которым требуется повышенная прочность.</p>
+        </div>
+        <div class="card reveal">
+          <h3 class="card__title">ABS / ASA</h3>
+          <p class="card__text">Прочные детали, работающие на улице. Устойчивость к УФ и температурам.</p>
+        </div>
+        <div class="card reveal">
+          <h3 class="card__title">TPU</h3>
+          <p class="card__text">Гибкие изделия: уплотнения, демпферы, эластичные муфты, ремни, ролики.</p>
+        </div>
+        <div class="card reveal">
+          <h3 class="card__title">PA (нейлон) / PC</h3>
+          <p class="card__text">Инженерные пластики для нагруженных деталей, шестерён и механизмов.</p>
+        </div>
+        <div class="card reveal">
+          <h3 class="card__title">Композиты</h3>
+          <p class="card__text">Пластики с коротким волокном (стекло/углерод) и непрерывным углеволокном — прочность до 300% выше.</p>
+        </div>
+      </div>
+      <div class="reveal" style="margin-top:40px">
+        <div class="card">
+          <h3 class="card__title" style="margin-bottom:12px">Параметры нашего FDM-оборудования</h3>
+          <div style="overflow-x:auto">
+          <table class="spec-table" style="min-width:680px">
+            <thead><tr><th></th><th>Stereotech 530 Fiber/Hybrid</th><th>Bambu Lab X1 Carbon</th></tr></thead>
+            <tbody>
+              <tr><td>Технология</td><td>FDM + 5D (пятиосевая печать), армирование непрерывным углеволокном</td><td>FDM, высокоскоростная печать</td></tr>
+              <tr><td>Рабочая область</td><td>300 × 300 × 300 мм</td><td>256 × 256 × 256 мм</td></tr>
+              <tr><td>Экструдеры</td><td>2</td><td>1 (до 4 материалов с AMS)</td></tr>
+              <tr><td>Мин. толщина слоя</td><td>0,05 мм</td><td>0,06 мм</td></tr>
+              <tr><td>Темп. экструдера</td><td>до 350 °C</td><td>до 300 °C</td></tr>
+              <tr><td>Скорость печати</td><td>5–150 мм/с</td><td>до 500 мм/с</td></tr>
+              <tr><td>Диаметр сопла</td><td>0,1–1,0 мм</td><td>0,2–0,6 мм</td></tr>
+              <tr><td>Филаменты</td><td>PLA, PVA, ABS, SBS, PETG, TPU, PP, PA6, PA12, PC, композиты с волокном, WAX3D, Ultrafuse 316L (печать металлом)</td><td>PLA, PETG, TPU, ABS, ASA, PVA, PET, PA, PC, композиты с углеродным и стекловолокном</td></tr>
+            </tbody>
+          </table>
           </div>
+        </div>
+      </div>
+      <div style="margin-top:32px"><a href="/portfolio.html" class="btn btn--dark">Примеры изделий</a></div>
+    </div>
+  </section>
 
-          <!-- интерактивный выбор материала -->
-          <h3 class="h3" id="metal-materials" style="margin:32px 0 20px">Выберите материал</h3>
-          <div class="materials reveal" data-materials>
-            <div class="materials__list">
-              <button class="materials__btn is-active" data-panel="mat-tc4" type="button">Титан · TC4 (Ti6Al4V)</button>
-              <button class="materials__btn" data-panel="mat-316l" type="button">Нержавеющая сталь · 316L</button>
-              <button class="materials__btn" data-panel="mat-17-4ph" type="button">Нержавеющая сталь · 17-4PH</button>
-              <button class="materials__btn" data-panel="mat-alsi" type="button">Алюминий · AlSi10Mg</button>
-              <button class="materials__btn" data-panel="mat-gh4169" type="button">Жаропрочный сплав · GH4169</button>
-              <button class="materials__btn" data-panel="mat-18ni300" type="button">Инструментальная сталь · 18Ni300</button>
-              <button class="materials__btn" data-panel="mat-cx" type="button">Сталь для пресс-форм · CX</button>
-              <button class="materials__btn" data-panel="mat-cocr" type="button">Кобальт-хром · CoCr</button>
-            </div>
-            <div>
-              <div class="materials__panel is-active" id="mat-tc4">
-                <h3>Титан TC4 (Ti6Al4V)</h3>
-                <p class="lead">α+β титановый сплав — наиболее широко используемый класс титановых сплавов в мире.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Высокая прочность при малом весе, отличная биосовместимость. Ближайший к кости модуль упругости среди конструкционных металлов (около 110 ГПа).</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 1050 ± 50 МПа, предел прочности 1230 ± 50 МПа</li>
-                  <li><b>После термообработки:</b> прочность 1015 ± 50 МПа, удлинение 13 ± 3%</li>
-                  <li><b>Применения:</b> медицинские импланты, авиация, спортинвентарь, детали с пористой структурой</li>
-                </ul>
-                <span class="chip">Медицина · Авиация · Промышленность</span>
-              </div>
-              <div class="materials__panel" id="mat-316l">
-                <h3>Нержавеющая сталь 316L</h3>
-                <p class="lead">Коррозионно-стойкая сталь для функциональных деталей и промышленных компонентов.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Прочность, пластичность и свариваемость. Идеальна для корпусов, оснастки, деталей, работающих в агрессивных средах.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 510 ± 100 МПа, предел прочности 700 ± 100 МПа</li>
-                  <li><b>Удлинение:</b> 35 ± 10% — высокая пластичность</li>
-                  <li><b>Применения:</b> корпуса, фланцы, крепёж, детали пищевой и химической промышленности</li>
-                </ul>
-                <span class="chip">Промышленность · Химия · Пищевое оборудование</span>
-              </div>
-              <div class="materials__panel" id="mat-17-4ph">
-                <h3>Нержавеющая сталь 17-4PH</h3>
-                <p class="lead">Высокопрочная осадочно-твердеющая нержавеющая сталь.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Сочетает коррозионную стойкость и высокую прочность после термообработки.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 560 ± 100 МПа, предел прочности 900 ± 100 МПа</li>
-                  <li><b>После термообработки:</b> прочность до 1300 ± 100 МПа, удлинение 16 ± 2%</li>
-                  <li><b>Применения:</b> авиация, оснастка, детали, требующие высокой прочности</li>
-                </ul>
-                <span class="chip">Авиация · Оснастка · Машиностроение</span>
-              </div>
-              <div class="materials__panel" id="mat-alsi">
-                <h3>Алюминий AlSi10Mg</h3>
-                <p class="lead">Лёгкий алюминиевый сплав с отличной теплопроводностью.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Лёгкие конструкции с тонкими стенками и внутренними каналами. Идеален там, где важны вес и теплообмен.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 240 ± 50 МПа, предел прочности 440 ± 50 МПа</li>
-                  <li><b>После термообработки:</b> прочность 320 ± 50 МПа, удлинение 8 ± 3%</li>
-                  <li><b>Применения:</b> корпуса, теплообменники, компоненты с внутренними каналами, лёгкие прототипы</li>
-                </ul>
-                <span class="chip">Электроника · Теплообмен · Автомобилестроение</span>
-              </div>
-              <div class="materials__panel" id="mat-gh4169">
-                <h3>Жаропрочный сплав GH4169</h3>
-                <p class="lead">Никелевый жаропрочный сплав для ответственных узлов, работающих при высоких температурах.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Сохраняет прочность при нагреве — энергетика, газотурбинные компоненты.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 770 ± 80 МПа, предел прочности 1080 ± 80 МПа</li>
-                  <li><b>После термообработки:</b> прочность до 1400 ± 100 МПа</li>
-                  <li><b>Применения:</b> газотурбинные лопатки, элементы камер сгорания, крепёж при высоких температурах</li>
-                </ul>
-                <span class="chip">Энергетика · Авиация · Нефтегаз</span>
-              </div>
-              <div class="materials__panel" id="mat-18ni300">
-                <h3>Инструментальная сталь 18Ni300</h3>
-                <p class="lead">Мартенситно-стареющая сталь с рекордной прочностью после термообработки.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Формы, пресс-формы и оснастка с конформным охлаждением.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 1000 ± 100 МПа, предел прочности 1080 ± 100 МПа</li>
-                  <li><b>После термообработки:</b> прочность до 2000 ± 100 МПа</li>
-                  <li><b>Применения:</b> пресс-формы, вставки, формообразующие элементы, высоконагруженная оснастка</li>
-                </ul>
-                <span class="chip">Пресс-формы · Оснастка · Инструмент</span>
-              </div>
-              <div class="materials__panel" id="mat-cx">
-                <h3>Сталь для пресс-форм CX</h3>
-                <p class="lead">Инструментальная сталь, специально разработанная для формообразующих узлов.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Высокая твёрдость и полируемость. Конформные каналы охлаждения сокращают цикл литья.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Прочность после печати:</b> предел текучести 900 ± 50 МПа, предел прочности 1000 ± 100 МПа</li>
-                  <li><b>После термообработки:</b> прочность до 1600 ± 100 МПа</li>
-                  <li><b>Применения:</b> пресс-формы для литья под давлением, вставки с каналами охлаждения</li>
-                </ul>
-                <span class="chip">Литьё · Пресс-формы</span>
-              </div>
-              <div class="materials__panel" id="mat-cocr">
-                <h3>Кобальт-хром CoCr</h3>
-                <p class="lead">Биосовместимый сплав высокой прочности.</p>
-                <p style="color:var(--ink-soft);margin-bottom:16px">Стоматология, ортопедия, износостойкие промышленные компоненты.</p>
-                <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
-                  <li><b>Применения:</b> зубные коронки, съёмные конструкции, хирургический инструмент, износостойкие детали</li>
-                  <li><b>Прочность:</b> одни из высочайших среди сплавов для аддитивных технологий</li>
-                </ul>
-                <span class="chip">Медицина · Стоматология · Промышленность</span>
-              </div>
-            </div>
+  <!-- ======== Направление 2: Металл ======== -->
+  <section class="section section--dark" id="metal">
+    <div class="container">
+      <div class="service-block" style="padding-top:0">
+        <div class="service-block__content reveal">
+          <span class="eyebrow">Направление 2 · Металл</span>
+          <h2 class="h2">SLM / LPBF — промышленная металлическая печать</h2>
+          <p class="lead" style="margin-bottom:16px">Селективное лазерное сплавление металлических порошков на HBD P400: 350×400×400 мм, 4–6 лазеров, плотность изделий более 99,9%.</p>
+          <ul style="display:grid;gap:10px;color:#aeb6c4;margin-bottom:24px">
+            <li><b style="color:#fff">Зачем:</b> сложная геометрия, внутренние каналы, мелкосерийное производство без оснастки.</li>
+            <li><b style="color:#fff">Точность:</b> характерная 0,05–0,2 мм, слой 20–120 мкм.</li>
+            <li><b style="color:#fff">Типичные изделия:</b> корпуса, оснастка, прототипы, промышленные компоненты.</li>
+          </ul>
+          <a href="/equipment.html" class="btn btn--light">Подробнее об HBD P400</a>
+        </div>
+        <div class="service-block__media drop reveal">
+          <img src="/img/hbd-p400.jpg" srcset="/img/hbd-p400.webp 768w" sizes="(max-width: 768px) 90vw, 480px" width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом" loading="lazy" onerror="this.onerror=null;this.src='/img/hbd-p400-cutout.png'">
+        </div>
+      </div>
+
+      <h3 class="h3" id="metal-materials" style="margin:32px 0 20px">Металлические порошки, с которыми мы работаем</h3>
+      <p class="lead" style="margin-bottom:24px">Выберите материал — посмотрите характеристики и типовые применения.</p>
+      <div class="materials reveal" data-materials>
+        <div class="materials__list">
+          <button class="materials__btn is-active" data-panel="mat-tc4" type="button">Титан · TC4 (Ti6Al4V)</button>
+          <button class="materials__btn" data-panel="mat-316l" type="button">Нержавеющая сталь · 316L</button>
+          <button class="materials__btn" data-panel="mat-17-4ph" type="button">Нержавеющая сталь · 17-4PH</button>
+          <button class="materials__btn" data-panel="mat-alsi" type="button">Алюминий · AlSi10Mg</button>
+          <button class="materials__btn" data-panel="mat-gh4169" type="button">Жаропрочный сплав · GH4169</button>
+          <button class="materials__btn" data-panel="mat-18ni300" type="button">Инструментальная сталь · 18Ni300</button>
+          <button class="materials__btn" data-panel="mat-cx" type="button">Сталь для пресс-форм · CX</button>
+          <button class="materials__btn" data-panel="mat-cocr" type="button">Кобальт-хром · CoCr</button>
+        </div>
+        <div>
+          <div class="materials__panel is-active" id="mat-tc4">
+            <h3>Титан TC4 (Ti6Al4V)</h3>
+            <p class="lead">α+β титановый сплав — наиболее широко используемый класс титановых сплавов в мире.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Высокая прочность при малом весе — оптимален для нагруженных деталей, где каждый грамм имеет значение.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 1050 ± 50 МПа, предел прочности 1230 ± 50 МПа</li>
+              <li><b>После термообработки:</b> прочность 1015 ± 50 МПа, удлинение 13 ± 3%</li>
+              <li><b>Применения:</b> авиация, спортинвентарь, высоконагруженные узлы, детали с пористой структурой</li>
+            </ul>
+            <span class="chip">Авиация · Спорт · Промышленность</span>
+          </div>
+          <div class="materials__panel" id="mat-316l">
+            <h3>Нержавеющая сталь 316L</h3>
+            <p class="lead">Коррозионно-стойкая сталь для функциональных деталей и промышленных компонентов.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Прочность, пластичность и свариваемость. Идеальна для корпусов, оснастки, деталей, работающих в агрессивных средах.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 510 ± 100 МПа, предел прочности 700 ± 100 МПа</li>
+              <li><b>Удлинение:</b> 35 ± 10% — высокая пластичность</li>
+              <li><b>Применения:</b> корпуса, фланцы, крепёж, детали пищевой и химической промышленности</li>
+            </ul>
+            <span class="chip">Промышленность · Химия · Пищевое оборудование</span>
+          </div>
+          <div class="materials__panel" id="mat-17-4ph">
+            <h3>Нержавеющая сталь 17-4PH</h3>
+            <p class="lead">Высокопрочная осадочно-твердеющая нержавеющая сталь.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Сочетает коррозионную стойкость и высокую прочность после термообработки.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 560 ± 100 МПа, предел прочности 900 ± 100 МПа</li>
+              <li><b>После термообработки:</b> прочность до 1300 ± 100 МПа, удлинение 16 ± 2%</li>
+              <li><b>Применения:</b> авиация, оснастка, детали, требующие высокой прочности</li>
+            </ul>
+            <span class="chip">Авиация · Оснастка · Машиностроение</span>
+          </div>
+          <div class="materials__panel" id="mat-alsi">
+            <h3>Алюминий AlSi10Mg</h3>
+            <p class="lead">Лёгкий алюминиевый сплав с отличной теплопроводностью.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Лёгкие конструкции с тонкими стенками и внутренними каналами. Идеален там, где важны вес и теплообмен.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 240 ± 50 МПа, предел прочности 440 ± 50 МПа</li>
+              <li><b>После термообработки:</b> прочность 320 ± 50 МПа, удлинение 8 ± 3%</li>
+              <li><b>Применения:</b> корпуса, теплообменники, компоненты с внутренними каналами, лёгкие прототипы</li>
+            </ul>
+            <span class="chip">Электроника · Теплообмен · Автомобилестроение</span>
+          </div>
+          <div class="materials__panel" id="mat-gh4169">
+            <h3>Жаропрочный сплав GH4169</h3>
+            <p class="lead">Никелевый жаропрочный сплав для ответственных узлов, работающих при высоких температурах.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Сохраняет прочность при нагреве — энергетика, газотурбинные компоненты.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 770 ± 80 МПа, предел прочности 1080 ± 80 МПа</li>
+              <li><b>После термообработки:</b> прочность до 1400 ± 100 МПа</li>
+              <li><b>Применения:</b> газотурбинные лопатки, элементы камер сгорания, крепёж при высоких температурах</li>
+            </ul>
+            <span class="chip">Энергетика · Авиация · Нефтегаз</span>
+          </div>
+          <div class="materials__panel" id="mat-18ni300">
+            <h3>Инструментальная сталь 18Ni300</h3>
+            <p class="lead">Мартенситно-стареющая сталь с рекордной прочностью после термообработки.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Формы, пресс-формы и оснастка с конформным охлаждением.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 1000 ± 100 МПа, предел прочности 1080 ± 100 МПа</li>
+              <li><b>После термообработки:</b> прочность до 2000 ± 100 МПа</li>
+              <li><b>Применения:</b> пресс-формы, вставки, формообразующие элементы, высоконагруженная оснастка</li>
+            </ul>
+            <span class="chip">Пресс-формы · Оснастка · Инструмент</span>
+          </div>
+          <div class="materials__panel" id="mat-cx">
+            <h3>Сталь для пресс-форм CX</h3>
+            <p class="lead">Инструментальная сталь, специально разработанная для формообразующих узлов.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Высокая твёрдость и полируемость. Конформные каналы охлаждения сокращают цикл литья.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Прочность после печати:</b> предел текучести 900 ± 50 МПа, предел прочности 1000 ± 100 МПа</li>
+              <li><b>После термообработки:</b> прочность до 1600 ± 100 МПа</li>
+              <li><b>Применения:</b> пресс-формы для литья под давлением, вставки с каналами охлаждения</li>
+            </ul>
+            <span class="chip">Литьё · Пресс-формы</span>
+          </div>
+          <div class="materials__panel" id="mat-cocr">
+            <h3>Кобальт-хром CoCr</h3>
+            <p class="lead">Высокопрочный износостойкий сплав.</p>
+            <p style="color:var(--ink-soft);margin-bottom:16px">Один из самых прочных и износостойких сплавов для аддитивных технологий.</p>
+            <ul style="display:grid;gap:8px;color:var(--ink-soft);font-size:14.5px;margin-bottom:20px">
+              <li><b>Применения:</b> износостойкие компоненты, крепёж, элементы, работающие на трение и износ</li>
+              <li><b>Прочность:</b> одни из высочайших среди сплавов для аддитивных технологий</li>
+            </ul>
+            <span class="chip">Промышленность · Инструмент · Износ</span>
           </div>
         </div>
       </div>
@@ -256,7 +312,7 @@
   </section>
 
   <!-- ======== Что мы уже изготовили ======== -->
-  <section class="section section--alt" id="made">
+  <section class="section" id="made">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">Портфолио</span>
@@ -278,9 +334,9 @@
         <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-9.png" alt="Демпферы и эластичные муфты" data-lightbox loading="lazy"><div class="gallery__caption"><b>Демпферы, эластичные муфты</b>TPU · FDM</div></div>
         <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-2.png" alt="Ролики, в том числе с подшипником" data-lightbox loading="lazy"><div class="gallery__caption"><b>Ролики</b>Пластик · FDM</div></div>
         <div class="gallery__item reveal" data-category="plastic"><img src="/img/print-1.png" alt="Мембраны насосов" data-lightbox loading="lazy"><div class="gallery__caption"><b>Мембраны насосов</b>TPU · FDM</div></div>
-        <div class="gallery__item reveal" data-category="metal"><img src="/img/korpus-kompressora.jpg" alt="Корпус компрессора из алюминиевого сплава" data-lightbox loading="lazy"><div class="gallery__caption"><b>Корпус компрессора</b>Алюминиевый сплав · SLM</div></div>
-        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-24_14-54-05.jpg" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
-        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-23_15-00-04.jpg" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/korpus-kompressora.jpg" srcset="/img/korpus-kompressora.webp 960w" sizes="(max-width: 768px) 45vw, 400px" width="960" height="1280" alt="Корпус компрессора из алюминиевого сплава" data-lightbox loading="lazy"><div class="gallery__caption"><b>Корпус компрессора</b>Алюминиевый сплав · SLM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-24_14-54-05.jpg" srcset="/img/photo_2026-06-24_14-54-05.webp 960w" sizes="(max-width: 768px) 45vw, 400px" width="960" height="1280" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
+        <div class="gallery__item reveal" data-category="metal"><img src="/img/photo_2026-06-23_15-00-04.jpg" srcset="/img/photo_2026-06-23_15-00-04.webp 960w" sizes="(max-width: 768px) 45vw, 400px" width="960" height="1280" alt="Металлическое изделие, изготовленное методом SLM-печати" data-lightbox loading="lazy"><div class="gallery__caption"><b>Металлическое изделие</b>Печать металлом · SLM</div></div>
       </div>
     </div>
   </section>
@@ -329,7 +385,7 @@
         <div class="footer__contacts">
           <a href="tel:+788555244830">8-8555-24-48-30</a>
           <a href="mailto:info@s-nk.su">info@s-nk.su</a>
-          <span style="color:#8f97a6;font-size:14px">г. Нижнекамск, БСИ, ул. Заводская 3&nbsp;В</span>
+          <span style="color:#8f97a6;font-size:14px">г. Нижнекамск, ул. Заводская 3&nbsp;В</span>
           <span style="color:#8f97a6;font-size:14px">г. Москва, ул. Матросская Тишина, 23с1</span>
         </div>
       </div>
