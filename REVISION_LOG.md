@@ -300,6 +300,31 @@
 
 ---
 
+### 23. Исправление sitemap.xml и канонических тегов
+
+**Проблема (по SITE_STRUCTURE_AUDIT.md):** `sitemap.xml` содержал 3 несуществующие страницы (`about.html`, `blog.html`, `privacy.html` — ведут на 404) и не содержал 3 реальные посадочные страницы; канонические теги отсутствовали на 6 базовых страницах и на посадочной `izgotovlenie-po-obrazcu`.
+
+**Изменено в `sitemap.xml`:**
+- Удалены несуществующие URL: `/about.html`, `/blog.html`, `/privacy.html`
+- Добавлены реальные посадочные страницы (priority 0.9, changefreq monthly):
+  - `https://sintegra-additive.ru/3d-pechat-metallom/`
+  - `https://sintegra-additive.ru/3d-skanirovanie/`
+  - `https://sintegra-additive.ru/izgotovlenie-po-obrazcu/`
+- Итого в sitemap: 10 фактических страниц сайта
+
+**Добавлено `<link rel="canonical">` в `<head>`:**
+- `printing.html` → `https://sintegra-additive.ru/printing.html`
+- `scanning.html` → `https://sintegra-additive.ru/scanning.html`
+- `modeling.html` → `https://sintegra-additive.ru/modeling.html`
+- `equipment.html` → `https://sintegra-additive.ru/equipment.html`
+- `portfolio.html` → `https://sintegra-additive.ru/portfolio.html`
+- `contacts.html` → `https://sintegra-additive.ru/contacts.html`
+- `izgotovlenie-po-obrazcu/index.html` → `https://sintegra-additive.ru/izgotovlenie-po-obrazcu/`
+
+**Итог:** канонический тег проставлен ровно 1 раз на каждой из 10 страниц сайта.
+
+---
+
 ## Инструкция по откату
 
 Если необходимо вернуться к предыдущему состоянию проекта, используйте Git:
