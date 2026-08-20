@@ -57,7 +57,7 @@
 <header class="header">
   <div class="container header__inner">
     <a href="/" class="header__logo">
-      <img src="/img/logo-removebg-preview.png" alt="Синтегра 3D">
+      <img src="/img/logo-removebg-preview.png" width="117" height="36" alt="Синтегра 3D">
     </a>
     <nav class="header__nav">
       <ul class="header__menu">
@@ -116,7 +116,10 @@
       </div>
       <div class="hero__media">
         <div class="hero__photo">
-          <img src="/img/hbd-p400-removebg-preview.png" srcset width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом">
+          <picture>
+            <source srcset="/img/hbd-p400.webp" type="image/webp">
+            <img src="/img/hbd-p400-removebg-preview.png" width="768" height="1024" alt="Промышленный 3D-принтер HBD P400 для печати металлом" fetchpriority="high">
+          </picture>
         </div>
         <div class="hero__media-chip"><b>HBD P400</b>Промышленная 3D-печать металлом (SLM)</div>
       </div>
@@ -556,7 +559,7 @@
             <div class="form-file">
               <span>📎</span>
               <span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span>
-              <input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip">
+              <input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip" aria-label="Прикрепить файл ТЗ или 3D-модель">
             </div>
             <div class="form-hint-file">STL, OBJ, 3MF, STEP, PDF, DXF, DWG, JPG, PNG, ZIP</div>
           </div>
@@ -694,7 +697,7 @@
         <div class="form-file">
           <span>📎</span>
           <span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span>
-          <input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip">
+          <input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip" aria-label="Прикрепить файл ТЗ или 3D-модель">
         </div>
         <div class="form-hint-file">STL, OBJ, 3MF, STEP, PDF, DXF, DWG, JPG, PNG, ZIP</div>
       </div>
@@ -738,6 +741,6 @@
   });
   modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('is-open'); });
 </script>
-<script src="/js/main.js"></script>
+<script src="/js/main.js" defer></script>
 </body>
 </html>

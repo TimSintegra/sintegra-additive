@@ -251,7 +251,7 @@
       <div class="form-field"><label>Что необходимо изготовить? *</label><input name="task" type="text" placeholder="Например: отсканировать корпус компрессора" required></div>
       <div class="form-field form-field--full"><label>Комментарий</label><textarea name="comment" placeholder="Опишите задачу подробнее"></textarea></div>
       <div class="form-field form-field--full">
-        <div class="form-file"><span>📎</span><span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span><input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip"></div>
+        <div class="form-file"><span>📎</span><span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span><input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip" aria-label="Прикрепить файл ТЗ или 3D-модель"></div>
         <div class="form-hint-file">STL, OBJ, 3MF, STEP, PDF, DXF, DWG, JPG, PNG, ZIP</div>
       </div>
       <div class="form-field form-field--full">
@@ -291,6 +291,6 @@
   });
   modal.addEventListener('click', function (e) { if (e.target === modal) modal.classList.remove('is-open'); });
 </script>
-<script src="/js/main.js"></script>
+<script src="/js/main.js" defer></script>
 </body>
 </html>

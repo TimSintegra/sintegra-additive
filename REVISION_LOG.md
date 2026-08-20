@@ -509,6 +509,35 @@ git checkout -b <имя-ветки> <хэш-коммита>
 
 ---
 
+### 29. Оптимизация производительности и доступности по Lighthouse
+
+**В `index.html`:**
+- **LCP-изображение HBD P400**: обёрнуто в `<picture>` с `<source srcset="/img/hbd-p400.webp" type="image/webp">`, добавлен `fetchpriority="high"`, удалён `loading="lazy"` (если присутствовал), убран устаревший `srcset`
+- **Логотип**: добавлены атрибуты `width="117" height="36"` для устранения CLS
+- **Доступность форм**: всем `<input name="file" type="file">` добавлен `aria-label="Прикрепить файл ТЗ или 3D-модель"` (в основной форме и модальном окне)
+- **Критический JS**: к `<script src="/js/main.js">` добавлен атрибут `defer`
+
+**В `css/style.css`:**
+- **Контрастность футера**: цвет `.footer__title` изменён с `#6f7888` на `#e2e8f0`
+- **Контрастность копирайта**: цвет `.footer__bottom` изменён с `#6f7888` на `#ffffff` для прохождения WCAG
+
+**Во всех HTML-страницах (10 шт.):**
+- Всем `<input name="file" type="file">` добавлен `aria-label="Прикрепить файл ТЗ или 3D-модель"`
+- Ко всем `<script src="/js/main.js">` добавлен атрибут `defer`
+- Проверено: все изображения ниже первого экрана имеют `loading="lazy"`; выше- и в-фолд-изображения (логотипы, hero-изображения) без `lazy`
+
+**Кеширование статики:**
+- Создан `nginx.conf` с заголовками `Cache-Control: public, max-age=31536000, immutable` для `png`, `webp`, `jpg`, `css`, `js`, `woff2` и т.д.
+- Добавлены секции для HTML (`max-age=3600, must-revalidate`), проксирования `/api/` на Flask и gzip-сжатия
+
+**Затронутые файлы:**
+- `index.html`, `contacts.html`, `equipment.html`, `scanning.html`, `printing.html`, `modeling.html`, `portfolio.html`
+- `3d-pechat-metallom/index.html`, `3d-skanirovanie/index.html`, `izgotovlenie-po-obrazcu/index.html`
+- `css/style.css`
+- `nginx.conf` (новый файл)
+
+---
+
 ## Комментарии
 
 - Все изменения сохранены в отдельных атомарных коммитах по логическим блокам
