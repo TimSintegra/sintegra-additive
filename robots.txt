@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /api/
+Disallow: /tools/
 Allow: /
 
 Sitemap: https://sintegra-additive.ru/sitemap.xml
