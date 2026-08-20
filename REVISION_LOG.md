@@ -360,6 +360,37 @@
 
 ---
 
+### 26. Нормализация шапки: выпадающее меню «Услуги» и компактная навигация
+
+**Проблема:** в шапке было 9 пунктов меню, из-за чего навигация переполняла контейнер, ссылки перекрывали логотип и обрезали телефон справа.
+
+**Изменено в `css/style.css`:**
+- Контейнер `.container`: `padding: 0 20px` (было `24px`), `max-width: 1200px` сохранён
+- `.header__inner`: добавлен `justify-content: space-between`, `position: relative` для центрирования навигации
+- `.header__nav`: `position: absolute; left: 50%; transform: translateX(-50%); gap: 16px` (было `margin-left: auto; gap: 26px`)
+- Стили dropdown: `.dropdown`, `.dropdown-menu` с плавным появлением, тенью и `z-index: 1000`
+- Адаптив: на `max-width: 768px` dropdown превращается в раскрывающийся блок внутри мобильного меню, управляется кликом
+
+**Изменено в `js/main.js`:**
+- Добавлен обработчик клика по `.dropdown-toggle` для мобильных: переключает класс `.is-open` на `.dropdown`
+
+**Изменено во всех 10 HTML-страницах:**
+- Навигация сокращена с 9 пунктов до 5: `[ Главная ] [ Услуги ▾ ] [ Оборудование ] [ Портфолио ] [ Контакты ]`
+- Под «Услуги» вынесен выпадающий список с 5 ссылками:
+  - 3D-печать (все материалы) → `/printing.html`
+  - 3D-печать металлом → `/3d-pechat-metallom/`
+  - 3D-сканирование → `/3d-skanirovanie/`
+  - 3D-моделирование → `/modeling.html`
+  - Изготовление по образцу → `/izgotovlenie-po-obrazcu/`
+
+**Затронутые файлы:**
+- `css/style.css`
+- `js/main.js`
+- `index.html`, `printing.html`, `equipment.html`, `contacts.html`, `modeling.html`, `portfolio.html`, `scanning.html`
+- `3d-skanirovanie/index.html`, `3d-pechat-metallom/index.html`, `izgotovlenie-po-obrazcu/index.html`
+
+---
+
 ## Инструкция по откату
 
 Если необходимо вернуться к предыдущему состоянию проекта, используйте Git:

@@ -19,6 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- выпадающее меню на мобильных ---------- */
+  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
+    toggle.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        var dropdown = toggle.parentElement;
+        if (dropdown) dropdown.classList.toggle('is-open');
+      }
+    });
+  });
+
   /* ---------- появление при скролле ---------- */
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
