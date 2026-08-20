@@ -282,6 +282,24 @@
 
 ---
 
+### 22. JSON-LD микроразметка (Schema.org) на страницах сайта
+
+**Добавлено:**
+- `index.html` — блок `<script type="application/ld+json">` с типами `Organization` + `LocalBusiness`:
+  - `name`: Синтегра 3D
+  - `address`: Республика Татарстан, Нижнекамск, ул. Заводская, 3В (`PostalAddress`)
+  - `description`: промышленная 3D-печать металлом и пластиком, 3D-сканирование, реверс-инжиниринг
+  - `telephone`, `email`, `areaServed` (Татарстан, Россия), `logo`, `image`, `url`
+- `contacts.html` — аналогичная микроразметка `Organization` + `LocalBusiness`
+- `3d-pechat-metallom/index.html` — микроразметка `Service`:
+  - `serviceType`: Промышленная 3D-печать металлом (SLM/LPBF)
+  - `provider`: Синтегра 3D, `areaServed`: Татарстан, Россия
+- `3d-skanirovanie/index.html` — микроразметка `Service`:
+  - `serviceType`: Высокоточное 3D-сканирование деталей и оборудования
+  - `provider`: Синтегра 3D, `areaServed`: Татарстан, Россия
+
+---
+
 ## Инструкция по откату
 
 Если необходимо вернуться к предыдущему состоянию проекта, используйте Git:
