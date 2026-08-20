@@ -391,6 +391,28 @@
 
 ---
 
+### 27. Центрирование навигации в шапке и визуальный баланс
+
+**Проблема:** навигация была сдвинута вправо к блоку контактов из-за `position: absolute` и `transform: translateX(-50%)`, между логотипом и меню образовалась огромная пустота, а телефон обрезался справа.
+
+**Изменено в `css/style.css`:**
+- `.header__inner`: `justify-content: space-between` сохранён, убран `position: relative` (больше не нужен для абсолютного позиционирования навигации)
+- `.header__nav`: убрано `position: absolute; left: 50%; transform: translateX(-50%);`, добавлен `margin: 0 auto;` для точного центрирования
+- Добавлен `.header__menu`: `display: flex; align-items: center; gap: 20px; margin: 0; padding: 0; list-style: none;` — семантический список меню
+- `.header__cta` переименован в `.header__contacts`: `display: flex; align-items: center; gap: 16px; margin-left: auto;` — правый блок теперь явно прижат к правому краю
+- `.header__nav a, .dropdown-toggle`: шрифт и отступы перенесены на `.header__menu a, .dropdown-toggle` для корректного отображения в `<li>`
+- Добавлен `.header__menu, .dropdown-menu { list-style: none; padding: 0; margin: 0; }` для сброса стилей списков
+- Мобильный `@media (max-width: 768px)`: `.header__cta .btn` → `.header__contacts .btn`, навигация раскрывается вертикально, dropdown работает кликом
+
+**Итог:** шапка теперь состоит из трёх независимых блоков: логотип слева, навигация ровно по центру, телефон + CTA справа. Визуальный баланс восстановлен.
+
+**Затронутые файлы:**
+- `css/style.css`
+- `index.html`, `printing.html`, `equipment.html`, `contacts.html`, `modeling.html`, `portfolio.html`, `scanning.html`
+- `3d-skanirovanie/index.html`, `3d-pechat-metallom/index.html`, `izgotovlenie-po-obrazcu/index.html`
+
+---
+
 ## Инструкция по откату
 
 Если необходимо вернуться к предыдущему состоянию проекта, используйте Git:
