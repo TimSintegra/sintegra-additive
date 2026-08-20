@@ -11,7 +11,9 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG = os.path.join(HERE, "img")
 
 JOBS = [
-    ("hbd-p400-removebg-preview.png", (768,), 82),
+    ("hbd-p400-removebg-preview.png", (433,), 82),
+    ("st-530.png", (360,), 80),
+    ("logo-removebg-preview.png", (117,), 85),
     ("korpus-kompressora.jpg", (960, 480), 80),
     ("photo_2026-06-23_15-00-04.jpg", (960, 480), 80),
     ("photo_2026-06-24_14-54-05.jpg", (960, 480), 80),

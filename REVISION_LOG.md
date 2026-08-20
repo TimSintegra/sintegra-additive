@@ -538,6 +538,37 @@ git checkout -b <имя-ветки> <хэш-коммита>
 
 ---
 
+### 30. Удаление дублей PNG, оптимизация шрифтов и JS
+
+**Генерация WebP-версий (`tools/gen-images.py`):**
+- Добавлены задания для `st-530.png` → `st-530.webp` (360×360, q80) и `logo-removebg-preview.png` → `logo.webp` (117×36, q85)
+- Обновлено задание `hbd-p400-removebg-preview.png` → `hbd-p400.webp` (433×577, q82)
+- Все WebP-файлы сгенерированы через Pillow с качеством 80–85 и методом Lanczos
+
+**Замена всех ссылок на PNG в HTML (10 страниц):**
+- `img/hbd-p400-removebg-preview.png` → `img/hbd-p400.webp` (все упоминания: `<meta og:image>`, JSON-LD, `<img>`)
+- `img/logo-removebg-preview.png` → `img/logo.webp` (все упоминания в шапке и футере)
+- `img/st-530.png` → `img/st-530.webp` (страницы `index.html`, `printing.html`)
+- Логотипы: добавлены явные `width="117" height="36"` на всех 10 страницах в шапке и футере
+
+**Оптимизация рендеринга шрифтов:**
+- Ко всем ссылкам Google Fonts добавлены атрибуты `media="print" onload="this.media='all'"` для устранения блокировки FCP
+
+**Оптимизация JS (`js/main.js`):**
+- В обработчике аккордеона FAQ значение `body.scrollHeight` кешируется в переменную `targetHeight` ДО внесения изменений в DOM (убрано обращение к геометрии после записи `maxHeight=0`, что вызывало принудительную компоновку)
+
+**Кеширование и сжатие (`nginx.conf`):**
+- Объединены блоки кеширования статики в единый `location ~* \.(css|js|jpg|jpeg|png|gif|ico|webp|svg|woff2)$` с заголовком `Cache-Control: public, no-transform`
+- Добавлен блок `brotli on` с типами и уровнем сжатия 5 (игнорируется, если модуль не установлен)
+
+**Затронутые файлы:**
+- Все 10 HTML-страниц
+- `tools/gen-images.py`
+- `js/main.js`
+- `nginx.conf`
+
+---
+
 ## Комментарии
 
 - Все изменения сохранены в отдельных атомарных коммитах по логическим блокам

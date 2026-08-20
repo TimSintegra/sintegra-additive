@@ -118,11 +118,12 @@ document.addEventListener('DOMContentLoaded', function () {
       var body = item.querySelector('.accordion__body');
       btn.addEventListener('click', function () {
         var isOpen = item.classList.contains('is-open');
+        var targetHeight = isOpen ? 0 : body.scrollHeight;
         items.forEach(function (it) { it.classList.remove('is-open'); });
-        document.querySelectorAll('.accordion__body').forEach(function (b) { b.style.maxHeight = '0px'; });
+        wrap.querySelectorAll('.accordion__body').forEach(function (b) { b.style.maxHeight = '0px'; });
         if (!isOpen) {
           item.classList.add('is-open');
-          body.style.maxHeight = body.scrollHeight + 'px';
+          body.style.maxHeight = targetHeight + 'px';
         }
       });
     });
