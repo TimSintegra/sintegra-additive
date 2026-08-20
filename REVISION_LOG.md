@@ -413,6 +413,43 @@
 
 ---
 
+### 28. Переверстка dropdown «Услуги» на семантический `<ul>`/`<li>` без `<button>`
+
+**Проблема:** выпадающее меню «Услуги» было реализовано через `<button class="dropdown-toggle">`, что требовало лишней стилизации и конфликтовало с семантикой навигации.
+
+**Изменено в `css/style.css`:**
+- `.dropdown` → `.nav__item--dropdown` (родительский `<li>`)
+- `.dropdown-toggle` → `.nav__link--dropdown` (ссылка-триггер с `<span class="dropdown-arrow">`)
+- `.dropdown-menu a` → `.dropdown-menu__link` (ссылки внутри выпадающего списка)
+- Убраны лишние стили для `button` внутри навигации, добавлены аккуратные hover-эффекты для `<a>`
+
+**Изменено во всех 10 HTML-страницах:**
+```html
+<li class="nav__item nav__item--dropdown">
+  <a href="/printing.html" class="nav__link nav__link--dropdown">
+    Услуги <span class="dropdown-arrow">▾</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="/printing.html" class="dropdown-menu__link">3D-печать (все материалы)</a></li>
+    <li><a href="/3d-pechat-metallom/" class="dropdown-menu__link">3D-печать металлом</a></li>
+    <li><a href="/3d-skanirovanie/" class="dropdown-menu__link">3D-сканирование</a></li>
+    <li><a href="/modeling.html" class="dropdown-menu__link">3D-моделирование</a></li>
+    <li><a href="/izgotovlenie-po-obrazcu/" class="dropdown-menu__link">Изготовление по образцу</a></li>
+  </ul>
+</li>
+```
+
+**Изменено в `js/main.js`:**
+- Селектор `.dropdown-toggle` → `.nav__link--dropdown`
+- `toggle.parentElement` → `toggle.closest('.nav__item--dropdown')` для надежности вложенности
+
+**Затронутые файлы:**
+- `css/style.css`, `js/main.js`
+- `index.html`, `printing.html`, `equipment.html`, `contacts.html`, `modeling.html`, `portfolio.html`, `scanning.html`
+- `3d-skanirovanie/index.html`, `3d-pechat-metallom/index.html`, `izgotovlenie-po-obrazcu/index.html`
+
+---
+
 ## Инструкция по откату
 
 Если необходимо вернуться к предыдущему состоянию проекта, используйте Git:

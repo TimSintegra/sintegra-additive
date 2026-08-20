@@ -20,11 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- выпадающее меню на мобильных ---------- */
-  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
+  document.querySelectorAll('.nav__link--dropdown').forEach(function (toggle) {
     toggle.addEventListener('click', function (e) {
       if (window.innerWidth <= 768) {
         e.preventDefault();
-        var dropdown = toggle.parentElement;
+        var dropdown = toggle.closest('.nav__item--dropdown');
         if (dropdown) dropdown.classList.toggle('is-open');
       }
     });
