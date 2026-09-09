@@ -205,7 +205,7 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
 .hero__bg { position: absolute; inset: 0; z-index: -1; }
 .hero__grid-placeholder { position: absolute; inset: 0; background: linear-gradient(180deg, #eef1f6, var(--bg)); }
 .hero--dark .hero__grid-placeholder { background: transparent; }
-.hero__inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+.hero__inner { max-width: 1480px; display: grid; grid-template-columns: .95fr 1.35fr; gap: 40px; align-items: center; }
 .hero__badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: #fff; border: 1px solid var(--line); border-radius: 60px;
@@ -253,6 +253,15 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
   filter: drop-shadow(0 40px 70px rgba(0,0,0,.55));
 }
 .hero--dark .hero__photo { transform: scale(1.12); margin: 0 -48px -48px -28px; }
+.hero--dark .hero__photo--production {
+  aspect-ratio: 16 / 9; margin: 0; transform: none; overflow: hidden;
+  border: 1px solid rgba(88,133,210,.2); border-radius: 26px;
+  box-shadow: 0 38px 90px rgba(0,0,0,.46), 0 0 70px rgba(0,102,255,.08);
+}
+.hero--dark .hero__photo--production img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  animation: none; filter: none;
+}
 .hero--dark .hero__media::before { background: radial-gradient(closest-side, rgba(0,102,255,.22), transparent 72%); }
 .hero--dark .hero__meta-item { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12); color: #d6dae2; }
 .hero--dark .hero__meta-item svg { color: var(--accent); }
@@ -537,6 +546,7 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
   .hero__inner { grid-template-columns: 1fr; }
   .hero__media { order: -1; }
   .hero__photo { transform: none; margin: 0; max-width: 360px; }
+  .hero__photo--production { max-width: 100%; margin: 0 auto; }
   .hero__media::before { display: none; }
   .hero__photo img { max-height: 320px; margin: 0 auto; }
   .service-block { grid-template-columns: 1fr; gap: 32px; padding: 64px 0; }

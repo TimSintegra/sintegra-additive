@@ -147,16 +147,23 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ---------- лайтбокс галереи ---------- */
-  var lightbox = document.querySelector('.lightbox');
+  var lightbox = document.querySelector('[data-gallery-lightbox]');
   if (lightbox) {
     var lbImg = lightbox.querySelector('img');
-    var closeLb = function () { lightbox.classList.remove('is-open'); };
-    lightbox.querySelector('.lightbox__close').addEventListener('click', closeLb);
+    var closeLb = function () {
+      lightbox.classList.remove('is-open');
+      lbImg.removeAttribute('src');
+      lbImg.alt = '';
+    };
+    lightbox.querySelector('[data-close-lightbox]').addEventListener('click', closeLb);
     lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLb(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLb();
+    });
     document.querySelectorAll('[data-lightbox]').forEach(function (img) {
       img.addEventListener('click', function () {
         lbImg.src = img.dataset.lightbox || img.src;
+        lbImg.alt = img.alt;
         lightbox.classList.add('is-open');
       });
     });
