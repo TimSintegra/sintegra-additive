@@ -22,7 +22,11 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 body {
   font-family: var(--font);
   font-size: 16px;
@@ -30,7 +34,11 @@ body {
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  max-width: 100%;
   overflow-x: hidden;
+}
+@supports (overflow: clip) {
+  html, body { overflow-x: clip; }
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -202,11 +210,15 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
 .dropdown-menu__link:hover { background: var(--accent-soft); color: var(--accent); }
 
 /* ---------- hero ---------- */
-.hero { position: relative; padding: 160px 0 96px; }
+.hero { position: relative; padding: 160px 0 96px; overflow-x: hidden; }
+@supports (overflow: clip) {
+  .hero { overflow-x: clip; }
+}
 .hero__bg { position: absolute; inset: 0; z-index: -1; }
 .hero__grid-placeholder { position: absolute; inset: 0; background: linear-gradient(180deg, #eef1f6, var(--bg)); }
 .hero--dark .hero__grid-placeholder { background: transparent; }
 .hero__inner { max-width: 1480px; display: grid; grid-template-columns: .95fr 1.35fr; gap: 40px; align-items: center; }
+.hero__inner > * { min-width: 0; }
 .hero__badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: #fff; border: 1px solid var(--line); border-radius: 60px;
@@ -556,6 +568,9 @@ body.menu-open .header__burger span::after { top: 0; transform: rotate(-45deg); 
   .compare-cards { grid-template-columns: 1fr; gap: 24px; }
   .hero { padding: 120px 0 64px; }
   .hero__inner { grid-template-columns: 1fr; }
+  .hero__badge { max-width: 100%; flex-wrap: wrap; }
+  .hero__meta-item { max-width: 100%; overflow-wrap: anywhere; }
+  .hero__actions .btn { max-width: 100%; white-space: normal; }
   .hero__media { order: -1; }
   .hero__photo { transform: none; margin: 0; max-width: 360px; }
   .hero__photo--production { max-width: 100%; margin: 0 auto; }
