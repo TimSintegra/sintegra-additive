@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     filters.forEach(function (f) {
       f.addEventListener('click', function () {
         filters.forEach(function (x) { x.classList.remove('is-active'); });
+        filters.forEach(function (x) { x.setAttribute('aria-pressed', x === f ? 'true' : 'false'); });
         f.classList.add('is-active');
         var cat = f.dataset.filter;
         items.forEach(function (item) {
