@@ -1,0 +1,28 @@
+services:
+  api:
+    build: ./api
+    container_name: sintegra-additive-api
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /data
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      SECRET_KEY: ${SECRET_KEY}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+    volumes:
+      - sintegra-data:/data
+
+  web:
+    image: nginx:alpine
+    container_name: sintegra-additive-web
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "8085:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+volumes:
+  sintegra-data:
