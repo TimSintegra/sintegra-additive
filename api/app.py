@@ -171,20 +171,179 @@ def admin_required():
 
 
 ADMIN_TEMPLATE = '''<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Заявки — Синтегра 3D</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#172033;font:14px/1.45 Arial,sans-serif}.wrap{max-width:1440px;margin:0 auto;padding:28px 20px 48px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{font-size:25px;font-weight:700}.brand small{display:block;font-size:13px;color:#667085;font-weight:400;margin-top:3px}
-.actions{display:flex;gap:10px;align-items:center}.btn{border:0;border-radius:8px;padding:10px 15px;background:#1264e8;color:#fff;cursor:pointer;text-decoration:none;font-weight:600}.btn.secondary{background:#fff;color:#1264e8;border:1px solid #cbd5e1}.btn.danger{background:#fff;color:#bd2c2c;border:1px solid #efb7b7}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 16px #17325d0b}.stat{padding:18px}.stat b{display:block;font-size:26px}.stat span{color:#667085}.panel{padding:16px;overflow:hidden}.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:16px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:#667085}.field input,.field select{height:39px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;min-width:180px;background:#fff}.archive-check{display:flex;align-items:center;gap:7px;height:39px;color:#667085;white-space:nowrap}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1500px}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:top}th{background:#f7f9fc;font-size:12px;color:#667085;white-space:nowrap}td{max-width:260px;word-break:break-word}th:nth-child(3),td:nth-child(3){min-width:410px;white-space:nowrap}.muted{color:#98a2b3}.file{white-space:nowrap}.status-stack{display:flex;align-items:center;gap:6px;min-width:390px;white-space:nowrap}.status-form{display:flex;align-items:center;gap:6px;flex-shrink:0}.status-form select{height:38px;border:1px solid #cbd5e1;border-radius:7px;padding:0 8px;background:#fff;min-width:128px}.status-form button,.archive-form button{height:38px;border:0;border-radius:7px;padding:0 11px;background:#1264e8;color:#fff;cursor:pointer;font-weight:600}.archive-form{margin:0;flex-shrink:0}.archive-form button{background:#fff7f7;color:#b42318;border:1px solid #f1b7b2;font-size:12px;font-weight:600}.login{max-width:420px;margin:12vh auto}.login h1{margin-top:0}.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}.hint{color:#667085;font-size:13px}.empty{text-align:center;color:#667085;padding:42px}
-@media(max-width:700px){.top{align-items:flex-start;flex-direction:column}.actions{width:100%;flex-wrap:wrap}.stats{grid-template-columns:1fr}.wrap{padding:20px 12px}.btn{flex:1;text-align:center}.status-stack{align-items:flex-start;flex-wrap:wrap;min-width:260px}}
-</style></head><body><main class="wrap">
-{% if login %}<section class="panel login"><h1>Вход в админ-панель</h1><p class="hint">Синтегра 3D · заявки с сайта</p>{% if error %}<div class="error">{{ error }}</div>{% endif %}<form method="post"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form></section>
-{% else %}<header class="top"><div class="brand">Заявки Синтегра 3D<small>Административная панель</small></div><div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><button class="btn danger" type="submit">Выйти</button></form></div></header>
-<section class="stats"><div class="stat"><b>{{ total_count }}</b><span>Всего заявок</span></div><div class="stat"><b>{{ filtered_count }}</b><span>В текущем фильтре</span></div><div class="stat"><b>{{ with_files }}</b><span>С файлами</span></div></section>
-<section class="panel"><form class="filters" method="get"><div class="field"><label>Поиск</label><input name="q" value="{{ filters.q }}" placeholder="Имя, телефон, задача..."></div><div class="field"><label>Дата от</label><input name="date_from" type="date" value="{{ filters.date_from }}"></div><div class="field"><label>Дата до</label><input name="date_to" type="date" value="{{ filters.date_to }}"></div><div class="field"><label>Статус</label><select name="status"><option value="">Все статусы</option>{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div><label class="archive-check"><input name="show_archived" type="checkbox" value="1"{% if filters.show_archived %} checked{% endif %}> Показать архив</label><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></form>
-<div class="table-wrap">{% if rows %}<table><thead><tr><th>№</th><th>Дата</th><th>Статус</th><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Задача</th><th>Комментарий</th><th>Файл</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.id }}</td><td>{{ row.created_at }}</td><td><div class="status-stack"><form class="status-form" method="post" action="{{ url_for('admin_status_update', lead_id=row.id) }}"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><input type="hidden" name="show_archived" value="{{ '1' if filters.show_archived else '' }}"><select name="status" aria-label="Статус заявки №{{ row.id }}">{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if row.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select><button type="submit">Сохранить</button></form>{% if row.archived %}<span class="muted">{{ archive_label }}</span>{% endif %}<form class="archive-form" method="post" action="{{ url_for('admin_archive', lead_id=row.id) }}" onsubmit="return confirm('{{ 'Вернуть заявку в активные?' if row.archived else 'Переместить заявку в архив? Данные не будут удалены.' }}');"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><input type="hidden" name="show_archived" value="1"><button type="submit">{{ 'Вернуть' if row.archived else 'В архив' }}</button></form></div></td><td>{{ row.name }}</td><td>{{ row.phone }}</td><td>{{ row.email or '—' }}</td><td>{{ row.task }}</td><td>{{ row.comment or '—' }}</td><td class="file">{% if row.file_name %}<a href="{{ url_for('admin_file', name=row.file_name) }}">Скачать</a>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}</div></section>{% endif %}</main></body></html>'''
+:root{--bg:#f3f6fb;--text:#172033;--muted:#667085;--line:#e2e8f0;--blue:#1264e8;--red:#b42318}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Arial,sans-serif}
+button,input,select{font:inherit}
+button,a,input,select{-webkit-tap-highlight-color:transparent}
+form{margin:0}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid #91b9fb;outline-offset:3px}
+.wrap{max-width:1600px;margin:0 auto;padding:28px 24px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
+h1{font-size:26px;line-height:1.25;margin:0;font-weight:700}
+.brand small{display:block;font-size:13px;color:var(--muted);margin-top:6px}
+.actions{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 16px;border:1px solid transparent;border-radius:7px;background:var(--blue);color:#fff;cursor:pointer;text-decoration:none;font-size:14px;font-weight:600;line-height:1;white-space:nowrap}
+.btn:hover{background:#0e54c6}
+.btn.secondary{background:#fff;color:var(--blue);border-color:#cbd5e1}
+.btn.secondary:hover{background:#f0f5ff;border-color:#91b9fb}
+.btn.danger{background:#fff;color:var(--red);border-color:#efb7b7}
+.btn.danger:hover{background:#fff1f1}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:12px}
+.stat{padding:16px 20px;display:flex;align-items:center;gap:14px}
+.stat b{font-size:28px;line-height:1.2}
+.stat span{color:var(--muted);font-size:13px}
+.filters{padding:20px;display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:14px 16px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:12px;font-weight:600;color:var(--muted)}
+.field input,.field select,.status-form select{width:100%;min-width:0;height:40px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;background:#fff;color:var(--text)}
+.filter-footer{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.archive-check{display:flex;align-items:center;gap:8px;color:var(--muted);cursor:pointer;font-size:13px}
+.archive-check input{width:16px;height:16px;margin:0;accent-color:var(--blue);flex-shrink:0}
+.filter-actions{display:grid;grid-template-columns:repeat(2,120px);gap:10px}
+.list-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-top:1px solid var(--line)}
+.list-heading h2{margin:0;font-size:16px}
+.list-heading span{font-size:13px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+.col-lead{width:132px}.col-contact{width:27%}.col-management{width:242px}
+th,td{text-align:left;vertical-align:top;padding:18px 20px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{background:#f7f9fc;color:var(--muted);font-size:12px;font-weight:600;padding-top:12px;padding-bottom:12px}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fafcff}
+.lead-id{display:block;font-size:15px;margin-bottom:6px}
+.lead-date{display:block;font-size:12px;color:var(--muted)}
+.lead-date span{display:block}
+.contact-name,.task-title{font-weight:600;margin-bottom:6px}
+.contact-links{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.contact-links a{text-decoration:none;color:var(--text);max-width:100%}
+.contact-links a:hover{color:var(--blue);text-decoration:underline}
+.comment{margin-top:12px;color:#475467;white-space:pre-wrap}
+.comment-label{display:block;color:var(--muted);font-size:11px;margin-bottom:3px}
+.task-title{white-space:pre-wrap}
+.attachment{display:inline-flex;align-items:center;gap:6px;margin-top:12px;text-decoration:none;font-size:13px;font-weight:600}
+.attachment:hover{text-decoration:underline}
+.status-stack{display:grid;gap:8px}
+.status-form{min-width:0}
+.row-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.row-actions .btn{width:100%;padding:0 8px;font-size:12px}
+.archive-badge{justify-self:start;display:inline-block;background:#eef1f5;color:var(--muted);font-size:11px;border-radius:4px;padding:3px 7px}
+.muted{color:var(--muted)}
+.login{max-width:420px;margin:12vh auto;padding:24px}
+.login h1{font-size:23px;margin-bottom:12px}
+.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}
+.login .btn{width:100%}
+.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}
+.hint{color:var(--muted);font-size:13px}
+.empty{text-align:center;color:var(--muted);padding:42px 20px}
+@media(max-width:1100px){.wrap{padding:24px 16px}.col-lead{width:112px}.col-contact{width:26%}.col-management{width:218px}th,td{padding-left:14px;padding-right:14px}}
+@media(max-width:900px){
+.filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+.table-wrap{padding:0 20px 20px}
+table,tbody{display:block}colgroup,thead{display:none}
+tbody{display:grid;gap:14px}
+tbody tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:9px;padding:16px;gap:16px}
+th,td{display:block;min-width:0;padding:0;border:0}
+.lead-meta{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.lead-id{margin:0}.lead-date span{display:inline;margin-left:6px}
+.management-cell{grid-column:1/-1;padding-top:14px;border-top:1px solid var(--line)}
+.status-stack{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:10px 16px}
+.archive-badge{grid-column:1/-1;grid-row:1}
+}
+@media(max-width:600px){
+.wrap{padding:20px 12px 32px}.top{align-items:flex-start;flex-direction:column;gap:16px;margin-bottom:20px}h1{font-size:23px}
+.actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.actions .btn{width:100%}
+.stats{gap:8px}.stat{padding:12px 8px;flex-direction:column;align-items:flex-start;gap:6px}.stat b{font-size:24px}.stat span{font-size:11px;line-height:1.4}
+.filters{padding:16px;gap:12px}.field-search{grid-column:1/-1}.field-status{grid-column:1/-1}.field input,.field select,.status-form select{font-size:16px}
+.filter-footer{align-items:stretch;flex-direction:column;gap:14px}.filter-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.list-heading{padding:16px}.table-wrap{padding:0 12px 12px}tbody tr{padding:14px;grid-template-columns:minmax(0,1fr);gap:16px}
+.lead-meta,.management-cell{grid-column:1}.status-stack{grid-template-columns:minmax(0,1fr)}.row-actions .btn{font-size:13px}.login{margin:8vh auto}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+{% if login %}
+<section class="panel login">
+<h1>Вход в админ-панель</h1><p class="hint">Синтегра 3D · заявки с сайта</p>
+{% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+<form method="post"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form>
+</section>
+{% else %}
+{% macro filter_fields(archive_value) %}
+<input type="hidden" name="q" value="{{ filters.q }}">
+<input type="hidden" name="date_from" value="{{ filters.date_from }}">
+<input type="hidden" name="date_to" value="{{ filters.date_to }}">
+<input type="hidden" name="filter_status" value="{{ filters.status }}">
+<input type="hidden" name="show_archived" value="{{ archive_value }}">
+{% endmacro %}
+<header class="top">
+<div class="brand"><h1>Заявки Синтегра 3D</h1><small>Административная панель</small></div>
+<div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><button class="btn danger" type="submit">Выйти</button></form></div>
+</header>
+<section class="stats" aria-label="Статистика заявок">
+<div class="stat"><b>{{ total_count }}</b><span>Всего заявок</span></div>
+<div class="stat"><b>{{ filtered_count }}</b><span>В текущем фильтре</span></div>
+<div class="stat"><b>{{ with_files }}</b><span>С файлами</span></div>
+</section>
+<section class="panel" aria-label="Список заявок">
+<form class="filters" method="get">
+<div class="field field-search"><label for="search">Поиск</label><input id="search" name="q" value="{{ filters.q }}" placeholder="Имя, телефон, e-mail, задача…"></div>
+<div class="field"><label for="date-from">Дата от</label><input id="date-from" name="date_from" type="date" value="{{ filters.date_from }}"></div>
+<div class="field"><label for="date-to">Дата до</label><input id="date-to" name="date_to" type="date" value="{{ filters.date_to }}"></div>
+<div class="field field-status"><label for="filter-status">Статус</label><select id="filter-status" name="status"><option value="">Все статусы</option>{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+<div class="filter-footer">
+<label class="archive-check"><input name="show_archived" type="checkbox" value="1"{% if filters.show_archived %} checked{% endif %}>Показать архив</label>
+<div class="filter-actions"><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></div>
+</div>
+</form>
+<div class="list-heading"><h2>Список заявок</h2><span>Найдено: {{ filtered_count }}</span></div>
+<div class="table-wrap">
+{% if rows %}
+<table aria-label="Заявки с сайта">
+<colgroup><col class="col-lead"><col class="col-contact"><col><col class="col-management"></colgroup>
+<thead><tr><th scope="col">Заявка / дата</th><th scope="col">Клиент и контакты</th><th scope="col">Задача и комментарий</th><th scope="col">Статус и действия</th></tr></thead>
+<tbody>
+{% for row in rows %}
+<tr>
+<td class="lead-meta"><strong class="lead-id">№ {{ row.id }}</strong><time class="lead-date" datetime="{{ row.created_at|replace(' ', 'T') }}Z">{{ row.created_at[:10] }}<span>{{ row.created_at[11:] }} UTC</span></time></td>
+<td><div class="contact-name">{{ row.name or '—' }}</div><div class="contact-links">{% if row.phone %}<a href="tel:{{ row.phone }}">{{ row.phone }}</a>{% else %}<span class="muted">Телефон не указан</span>{% endif %}{% if row.email %}<a href="mailto:{{ row.email }}">{{ row.email }}</a>{% endif %}</div></td>
+<td><div class="task-title">{{ row.task or 'Задача не указана' }}</div>{% if row.comment %}<div class="comment"><span class="comment-label">Комментарий</span>{{ row.comment }}</div>{% endif %}{% if row.file_name %}<a class="attachment" href="{{ url_for('admin_file', name=row.file_name) }}">Скачать файл</a>{% endif %}</td>
+<td class="management-cell">
+<div class="status-stack">
+{% if row.archived %}<span class="archive-badge">{{ archive_label }}</span>{% endif %}
+<form id="status-{{ row.id }}" class="status-form" method="post" action="{{ url_for('admin_status_update', lead_id=row.id) }}">
+{{ filter_fields('1' if filters.show_archived else '') }}
+<select name="status" aria-label="Статус заявки №{{ row.id }}">{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if row.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+</form>
+<div class="row-actions">
+<button class="btn" type="submit" form="status-{{ row.id }}" aria-label="Сохранить статус заявки №{{ row.id }}">Сохранить</button>
+<form class="archive-form" method="post" action="{{ url_for('admin_archive', lead_id=row.id) }}" onsubmit="return confirm('{{ 'Вернуть заявку в активные?' if row.archived else 'Переместить заявку в архив? Данные не будут удалены.' }}');">
+{{ filter_fields('1') }}
+<button class="btn {{ 'secondary' if row.archived else 'danger' }}" type="submit" aria-label="{{ 'Вернуть из архива' if row.archived else 'В архив' }} заявку №{{ row.id }}">{{ 'Вернуть' if row.archived else 'В архив' }}</button>
+</form>
+</div>
+</div>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}
+</div>
+</section>
+{% endif %}
+</main>
+</body>
+</html>
+'''
 
 
 @app.post("/api/lead")
