@@ -24,6 +24,12 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
 MAX_FILE_MB = 25
+STATUS_LABELS = {
+    "new": "Новая",
+    "in_work": "В работе",
+    "completed": "Выполнена",
+    "cancelled": "Отменена",
+}
 
 
 def db():
@@ -32,8 +38,13 @@ def db():
     con.execute("""CREATE TABLE IF NOT EXISTS leads (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         created_at TEXT NOT NULL,
-        name TEXT, phone TEXT, email TEXT, task TEXT, comment TEXT, file_name TEXT
+        name TEXT, phone TEXT, email TEXT, task TEXT, comment TEXT, file_name TEXT,
+        status TEXT NOT NULL DEFAULT 'new'
     )""")
+    columns = {row[1] for row in con.execute("PRAGMA table_info(leads)").fetchall()}
+    if "status" not in columns:
+        con.execute("ALTER TABLE leads ADD COLUMN status TEXT NOT NULL DEFAULT 'new'")
+        con.commit()
     return con
 
 
@@ -76,6 +87,7 @@ def get_filters():
         "q": request.args.get("q", "").strip(),
         "date_from": request.args.get("date_from", "").strip(),
         "date_to": request.args.get("date_to", "").strip(),
+        "status": request.args.get("status", "").strip(),
     }
 
 
@@ -92,6 +104,9 @@ def get_leads(filters):
     if filters["date_to"]:
         query += " AND date(created_at) <= date(?)"
         params.append(filters["date_to"])
+    if filters["status"] in STATUS_LABELS:
+        query += " AND status = ?"
+        params.append(filters["status"])
     query += " ORDER BY id DESC"
     con = db()
     rows = con.execute(query, params).fetchall()
@@ -108,10 +123,10 @@ def xlsx_cell(value, style=None):
 
 
 def build_xlsx(rows):
-    headers = ["№", "Дата", "Имя", "Телефон", "E-mail", "Задача", "Комментарий", "Файл"]
+    headers = ["№", "Дата", "Статус", "Имя", "Телефон", "E-mail", "Задача", "Комментарий", "Файл"]
     data_rows = [headers]
     for row in rows:
-        data_rows.append([row["id"], row["created_at"], row["name"], row["phone"], row["email"], row["task"], row["comment"], row["file_name"]])
+        data_rows.append([row["id"], row["created_at"], STATUS_LABELS.get(row["status"], "Новая"), row["name"], row["phone"], row["email"], row["task"], row["comment"], row["file_name"]])
 
     sheet_rows = []
     for row_num, values in enumerate(data_rows, 1):
@@ -120,9 +135,9 @@ def build_xlsx(rows):
         sheet_rows.append(f'<row r="{row_num}">{cells}</row>')
     sheet_xml = f'''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<dimension ref="A1:H{max(1, len(data_rows))}"/><sheetViews><sheetView workbookViewId="0"/></sheetViews>
-<sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="8"/><col min="2" max="2" width="22"/><col min="3" max="5" width="24"/><col min="6" max="7" width="42"/><col min="8" max="8" width="32"/></cols>
-<sheetData>{''.join(sheet_rows)}</sheetData><autoFilter ref="A1:H{max(1, len(data_rows))}"/></worksheet>'''
+<dimension ref="A1:I{max(1, len(data_rows))}"/><sheetViews><sheetView workbookViewId="0"/></sheetViews>
+<sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="8"/><col min="2" max="2" width="22"/><col min="3" max="3" width="18"/><col min="4" max="6" width="24"/><col min="7" max="8" width="42"/><col min="9" max="9" width="32"/></cols>
+<sheetData>{''.join(sheet_rows)}</sheetData><autoFilter ref="A1:I{max(1, len(data_rows))}"/></worksheet>'''
 
     content_types = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'''
@@ -154,14 +169,14 @@ ADMIN_TEMPLATE = '''<!doctype html>
 *{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#172033;font:14px/1.45 Arial,sans-serif}.wrap{max-width:1440px;margin:0 auto;padding:28px 20px 48px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{font-size:25px;font-weight:700}.brand small{display:block;font-size:13px;color:#667085;font-weight:400;margin-top:3px}
 .actions{display:flex;gap:10px;align-items:center}.btn{border:0;border-radius:8px;padding:10px 15px;background:#1264e8;color:#fff;cursor:pointer;text-decoration:none;font-weight:600}.btn.secondary{background:#fff;color:#1264e8;border:1px solid #cbd5e1}.btn.danger{background:#fff;color:#bd2c2c;border:1px solid #efb7b7}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 16px #17325d0b}.stat{padding:18px}.stat b{display:block;font-size:26px}.stat span{color:#667085}.panel{padding:16px;overflow:hidden}.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:16px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:#667085}.field input{height:39px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;min-width:180px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1000px}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:top}th{background:#f7f9fc;font-size:12px;color:#667085;white-space:nowrap}td{max-width:260px;word-break:break-word}.muted{color:#98a2b3}.file{white-space:nowrap}.login{max-width:420px;margin:12vh auto}.login h1{margin-top:0}.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}.hint{color:#667085;font-size:13px}.empty{text-align:center;color:#667085;padding:42px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 16px #17325d0b}.stat{padding:18px}.stat b{display:block;font-size:26px}.stat span{color:#667085}.panel{padding:16px;overflow:hidden}.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:16px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:#667085}.field input,.field select{height:39px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;min-width:180px;background:#fff}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1200px}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:top}th{background:#f7f9fc;font-size:12px;color:#667085;white-space:nowrap}td{max-width:260px;word-break:break-word}.muted{color:#98a2b3}.file{white-space:nowrap}.status-form{display:flex;gap:6px;align-items:center}.status-form select{height:34px;border:1px solid #cbd5e1;border-radius:6px;padding:0 6px;background:#fff}.status-form button{height:34px;border:0;border-radius:6px;padding:0 9px;background:#1264e8;color:#fff;cursor:pointer}.login{max-width:420px;margin:12vh auto}.login h1{margin-top:0}.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}.hint{color:#667085;font-size:13px}.empty{text-align:center;color:#667085;padding:42px}
 @media(max-width:700px){.top{align-items:flex-start;flex-direction:column}.actions{width:100%;flex-wrap:wrap}.stats{grid-template-columns:1fr}.wrap{padding:20px 12px}.btn{flex:1;text-align:center}}
 </style></head><body><main class="wrap">
 {% if login %}<section class="panel login"><h1>Вход в админ-панель</h1><p class="hint">Синтегра 3D · заявки с сайта</p>{% if error %}<div class="error">{{ error }}</div>{% endif %}<form method="post"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form></section>
 {% else %}<header class="top"><div class="brand">Заявки Синтегра 3D<small>Административная панель</small></div><div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><button class="btn danger" type="submit">Выйти</button></form></div></header>
 <section class="stats"><div class="stat"><b>{{ total_count }}</b><span>Всего заявок</span></div><div class="stat"><b>{{ filtered_count }}</b><span>В текущем фильтре</span></div><div class="stat"><b>{{ with_files }}</b><span>С файлами</span></div></section>
-<section class="panel"><form class="filters" method="get"><div class="field"><label>Поиск</label><input name="q" value="{{ filters.q }}" placeholder="Имя, телефон, задача..."></div><div class="field"><label>Дата от</label><input name="date_from" type="date" value="{{ filters.date_from }}"></div><div class="field"><label>Дата до</label><input name="date_to" type="date" value="{{ filters.date_to }}"></div><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></form>
-<div class="table-wrap">{% if rows %}<table><thead><tr><th>№</th><th>Дата</th><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Задача</th><th>Комментарий</th><th>Файл</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.id }}</td><td>{{ row.created_at }}</td><td>{{ row.name }}</td><td>{{ row.phone }}</td><td>{{ row.email or '—' }}</td><td>{{ row.task }}</td><td>{{ row.comment or '—' }}</td><td class="file">{% if row.file_name %}<a href="{{ url_for('admin_file', name=row.file_name) }}">Скачать</a>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}</div></section>{% endif %}</main></body></html>'''
+<section class="panel"><form class="filters" method="get"><div class="field"><label>Поиск</label><input name="q" value="{{ filters.q }}" placeholder="Имя, телефон, задача..."></div><div class="field"><label>Дата от</label><input name="date_from" type="date" value="{{ filters.date_from }}"></div><div class="field"><label>Дата до</label><input name="date_to" type="date" value="{{ filters.date_to }}"></div><div class="field"><label>Статус</label><select name="status"><option value="">Все статусы</option>{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></form>
+<div class="table-wrap">{% if rows %}<table><thead><tr><th>№</th><th>Дата</th><th>Статус</th><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Задача</th><th>Комментарий</th><th>Файл</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.id }}</td><td>{{ row.created_at }}</td><td><form class="status-form" method="post" action="{{ url_for('admin_status_update', lead_id=row.id) }}"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><select name="status" aria-label="Статус заявки №{{ row.id }}">{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if row.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select><button type="submit">Сохранить</button></form></td><td>{{ row.name }}</td><td>{{ row.phone }}</td><td>{{ row.email or '—' }}</td><td>{{ row.task }}</td><td>{{ row.comment or '—' }}</td><td class="file">{% if row.file_name %}<a href="{{ url_for('admin_file', name=row.file_name) }}">Скачать</a>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}</div></section>{% endif %}</main></body></html>'''
 
 
 @app.post("/api/lead")
@@ -232,9 +247,24 @@ def admin():
 
     filters = get_filters()
     rows = get_leads(filters)
-    all_rows = get_leads({"q": "", "date_from": "", "date_to": ""})
+    all_rows = get_leads({"q": "", "date_from": "", "date_to": "", "status": ""})
     query = urllib.parse.urlencode({key: value for key, value in filters.items() if value})
-    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""))
+    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, status_labels=STATUS_LABELS, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""))
+
+
+@app.post("/api/admin/status/<int:lead_id>")
+def admin_status_update(lead_id):
+    if not admin_required():
+        return redirect(url_for("admin"))
+    status = request.form.get("status", "")
+    if status not in STATUS_LABELS:
+        return "Недопустимый статус", 400
+    con = db()
+    con.execute("UPDATE leads SET status = ? WHERE id = ?", (status, lead_id))
+    con.commit()
+    con.close()
+    params = {"q": request.form.get("q", ""), "date_from": request.form.get("date_from", ""), "date_to": request.form.get("date_to", ""), "status": request.form.get("filter_status", "")}
+    return redirect(url_for("admin", **{key: value for key, value in params.items() if value}))
 
 
 @app.post("/api/admin/logout")

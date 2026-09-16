@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         consent: form.querySelector('input[name=consent]')
       };
       var file = form.querySelector('input[name=file]');
+      var formFileLabel = form.querySelector('.form-file__name');
       var ok = true;
       var setError = function (f, text) {
         if (!f) return;
@@ -230,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
             msg.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
             msg.className = 'form-msg is-ok';
             form.reset();
-            if (label) label.textContent = 'Файл не выбран';
+            if (formFileLabel) formFileLabel.textContent = 'Файл не выбран';
           } else {
             msg.textContent = (res.d && res.d.error) || 'Ошибка отправки. Попробуйте ещё раз или позвоните нам.';
             msg.className = 'form-msg is-error';
