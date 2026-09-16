@@ -30,6 +30,7 @@ STATUS_LABELS = {
     "completed": "Выполнена",
     "cancelled": "Отменена",
 }
+ARCHIVE_LABEL = "В архиве"
 
 
 def db():
@@ -39,11 +40,15 @@ def db():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         created_at TEXT NOT NULL,
         name TEXT, phone TEXT, email TEXT, task TEXT, comment TEXT, file_name TEXT,
-        status TEXT NOT NULL DEFAULT 'new'
+        status TEXT NOT NULL DEFAULT 'new',
+        archived INTEGER NOT NULL DEFAULT 0
     )""")
     columns = {row[1] for row in con.execute("PRAGMA table_info(leads)").fetchall()}
     if "status" not in columns:
         con.execute("ALTER TABLE leads ADD COLUMN status TEXT NOT NULL DEFAULT 'new'")
+    if "archived" not in columns:
+        con.execute("ALTER TABLE leads ADD COLUMN archived INTEGER NOT NULL DEFAULT 0")
+    if "status" not in columns or "archived" not in columns:
         con.commit()
     return con
 
@@ -88,12 +93,15 @@ def get_filters():
         "date_from": request.args.get("date_from", "").strip(),
         "date_to": request.args.get("date_to", "").strip(),
         "status": request.args.get("status", "").strip(),
+        "show_archived": request.args.get("show_archived", "") == "1",
     }
 
 
 def get_leads(filters):
     query = "SELECT * FROM leads WHERE 1=1"
     params = []
+    if not filters.get("show_archived"):
+        query += " AND archived = 0"
     if filters["q"]:
         query += " AND (name LIKE ? OR phone LIKE ? OR email LIKE ? OR task LIKE ? OR comment LIKE ?)"
         value = f"%{filters['q']}%"
@@ -169,14 +177,14 @@ ADMIN_TEMPLATE = '''<!doctype html>
 *{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#172033;font:14px/1.45 Arial,sans-serif}.wrap{max-width:1440px;margin:0 auto;padding:28px 20px 48px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.brand{font-size:25px;font-weight:700}.brand small{display:block;font-size:13px;color:#667085;font-weight:400;margin-top:3px}
 .actions{display:flex;gap:10px;align-items:center}.btn{border:0;border-radius:8px;padding:10px 15px;background:#1264e8;color:#fff;cursor:pointer;text-decoration:none;font-weight:600}.btn.secondary{background:#fff;color:#1264e8;border:1px solid #cbd5e1}.btn.danger{background:#fff;color:#bd2c2c;border:1px solid #efb7b7}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 16px #17325d0b}.stat{padding:18px}.stat b{display:block;font-size:26px}.stat span{color:#667085}.panel{padding:16px;overflow:hidden}.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:16px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:#667085}.field input,.field select{height:39px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;min-width:180px;background:#fff}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1200px}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:top}th{background:#f7f9fc;font-size:12px;color:#667085;white-space:nowrap}td{max-width:260px;word-break:break-word}.muted{color:#98a2b3}.file{white-space:nowrap}.status-form{display:flex;gap:6px;align-items:center}.status-form select{height:34px;border:1px solid #cbd5e1;border-radius:6px;padding:0 6px;background:#fff}.status-form button{height:34px;border:0;border-radius:6px;padding:0 9px;background:#1264e8;color:#fff;cursor:pointer}.login{max-width:420px;margin:12vh auto}.login h1{margin-top:0}.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}.hint{color:#667085;font-size:13px}.empty{text-align:center;color:#667085;padding:42px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(160px,1fr));gap:14px;margin-bottom:18px}.stat,.panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 4px 16px #17325d0b}.stat{padding:18px}.stat b{display:block;font-size:26px}.stat span{color:#667085}.panel{padding:16px;overflow:hidden}.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:16px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:#667085}.field input,.field select{height:39px;border:1px solid #cbd5e1;border-radius:7px;padding:0 10px;min-width:180px;background:#fff}.archive-check{display:flex;align-items:center;gap:7px;height:39px;color:#667085;white-space:nowrap}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:1300px}th,td{padding:11px 10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:top}th{background:#f7f9fc;font-size:12px;color:#667085;white-space:nowrap}td{max-width:260px;word-break:break-word}.muted{color:#98a2b3}.file{white-space:nowrap}.status-form{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.status-form select{height:34px;border:1px solid #cbd5e1;border-radius:6px;padding:0 6px;background:#fff}.status-form button,.archive-form button{height:34px;border:0;border-radius:6px;padding:0 9px;background:#1264e8;color:#fff;cursor:pointer}.archive-form{margin-top:6px}.archive-form button{background:#fff;color:#bd2c2c;border:1px solid #efb7b7}.login{max-width:420px;margin:12vh auto}.login h1{margin-top:0}.login input{width:100%;height:44px;margin:8px 0 16px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:16px}.error{background:#fff1f1;color:#a42323;border-radius:7px;padding:10px;margin-bottom:15px}.hint{color:#667085;font-size:13px}.empty{text-align:center;color:#667085;padding:42px}
 @media(max-width:700px){.top{align-items:flex-start;flex-direction:column}.actions{width:100%;flex-wrap:wrap}.stats{grid-template-columns:1fr}.wrap{padding:20px 12px}.btn{flex:1;text-align:center}}
 </style></head><body><main class="wrap">
 {% if login %}<section class="panel login"><h1>Вход в админ-панель</h1><p class="hint">Синтегра 3D · заявки с сайта</p>{% if error %}<div class="error">{{ error }}</div>{% endif %}<form method="post"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form></section>
 {% else %}<header class="top"><div class="brand">Заявки Синтегра 3D<small>Административная панель</small></div><div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><button class="btn danger" type="submit">Выйти</button></form></div></header>
 <section class="stats"><div class="stat"><b>{{ total_count }}</b><span>Всего заявок</span></div><div class="stat"><b>{{ filtered_count }}</b><span>В текущем фильтре</span></div><div class="stat"><b>{{ with_files }}</b><span>С файлами</span></div></section>
-<section class="panel"><form class="filters" method="get"><div class="field"><label>Поиск</label><input name="q" value="{{ filters.q }}" placeholder="Имя, телефон, задача..."></div><div class="field"><label>Дата от</label><input name="date_from" type="date" value="{{ filters.date_from }}"></div><div class="field"><label>Дата до</label><input name="date_to" type="date" value="{{ filters.date_to }}"></div><div class="field"><label>Статус</label><select name="status"><option value="">Все статусы</option>{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></form>
-<div class="table-wrap">{% if rows %}<table><thead><tr><th>№</th><th>Дата</th><th>Статус</th><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Задача</th><th>Комментарий</th><th>Файл</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.id }}</td><td>{{ row.created_at }}</td><td><form class="status-form" method="post" action="{{ url_for('admin_status_update', lead_id=row.id) }}"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><select name="status" aria-label="Статус заявки №{{ row.id }}">{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if row.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select><button type="submit">Сохранить</button></form></td><td>{{ row.name }}</td><td>{{ row.phone }}</td><td>{{ row.email or '—' }}</td><td>{{ row.task }}</td><td>{{ row.comment or '—' }}</td><td class="file">{% if row.file_name %}<a href="{{ url_for('admin_file', name=row.file_name) }}">Скачать</a>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}</div></section>{% endif %}</main></body></html>'''
+<section class="panel"><form class="filters" method="get"><div class="field"><label>Поиск</label><input name="q" value="{{ filters.q }}" placeholder="Имя, телефон, задача..."></div><div class="field"><label>Дата от</label><input name="date_from" type="date" value="{{ filters.date_from }}"></div><div class="field"><label>Дата до</label><input name="date_to" type="date" value="{{ filters.date_to }}"></div><div class="field"><label>Статус</label><select name="status"><option value="">Все статусы</option>{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if filters.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div><label class="archive-check"><input name="show_archived" type="checkbox" value="1"{% if filters.show_archived %} checked{% endif %}> Показать архив</label><button class="btn" type="submit">Применить</button><a class="btn secondary" href="{{ url_for('admin') }}">Сбросить</a></form>
+<div class="table-wrap">{% if rows %}<table><thead><tr><th>№</th><th>Дата</th><th>Статус</th><th>Имя</th><th>Телефон</th><th>E-mail</th><th>Задача</th><th>Комментарий</th><th>Файл</th></tr></thead><tbody>{% for row in rows %}<tr><td>{{ row.id }}</td><td>{{ row.created_at }}</td><td><form class="status-form" method="post" action="{{ url_for('admin_status_update', lead_id=row.id) }}"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><input type="hidden" name="show_archived" value="{{ '1' if filters.show_archived else '' }}"><select name="status" aria-label="Статус заявки №{{ row.id }}">{% for value, label in status_labels.items() %}<option value="{{ value }}"{% if row.status == value %} selected{% endif %}>{{ label }}</option>{% endfor %}</select><button type="submit">Сохранить</button></form>{% if row.archived %}<span class="muted">{{ archive_label }}</span>{% endif %}<form class="archive-form" method="post" action="{{ url_for('admin_archive', lead_id=row.id) }}" onsubmit="return confirm('{{ 'Вернуть заявку в активные?' if row.archived else 'Переместить заявку в архив? Данные не будут удалены.' }}');"><input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="date_from" value="{{ filters.date_from }}"><input type="hidden" name="date_to" value="{{ filters.date_to }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><input type="hidden" name="show_archived" value="1"><button type="submit">{{ 'Вернуть' if row.archived else 'В архив' }}</button></form></td><td>{{ row.name }}</td><td>{{ row.phone }}</td><td>{{ row.email or '—' }}</td><td>{{ row.task }}</td><td>{{ row.comment or '—' }}</td><td class="file">{% if row.file_name %}<a href="{{ url_for('admin_file', name=row.file_name) }}">Скачать</a>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}</tbody></table>{% else %}<div class="empty">Заявок по выбранным условиям нет.</div>{% endif %}</div></section>{% endif %}</main></body></html>'''
 
 
 @app.post("/api/lead")
@@ -247,9 +255,11 @@ def admin():
 
     filters = get_filters()
     rows = get_leads(filters)
-    all_rows = get_leads({"q": "", "date_from": "", "date_to": "", "status": ""})
-    query = urllib.parse.urlencode({key: value for key, value in filters.items() if value})
-    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, status_labels=STATUS_LABELS, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""))
+    all_rows = get_leads({"q": "", "date_from": "", "date_to": "", "status": "", "show_archived": filters["show_archived"]})
+    query_filters = dict(filters)
+    query_filters["show_archived"] = "1" if filters["show_archived"] else ""
+    query = urllib.parse.urlencode({key: value for key, value in query_filters.items() if value})
+    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, status_labels=STATUS_LABELS, archive_label=ARCHIVE_LABEL, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""))
 
 
 @app.post("/api/admin/status/<int:lead_id>")
@@ -263,7 +273,23 @@ def admin_status_update(lead_id):
     con.execute("UPDATE leads SET status = ? WHERE id = ?", (status, lead_id))
     con.commit()
     con.close()
-    params = {"q": request.form.get("q", ""), "date_from": request.form.get("date_from", ""), "date_to": request.form.get("date_to", ""), "status": request.form.get("filter_status", "")}
+    params = {"q": request.form.get("q", ""), "date_from": request.form.get("date_from", ""), "date_to": request.form.get("date_to", ""), "status": request.form.get("filter_status", ""), "show_archived": request.form.get("show_archived", "")}
+    return redirect(url_for("admin", **{key: value for key, value in params.items() if value}))
+
+
+@app.post("/api/admin/archive/<int:lead_id>")
+def admin_archive(lead_id):
+    if not admin_required():
+        return redirect(url_for("admin"))
+    con = db()
+    current = con.execute("SELECT archived FROM leads WHERE id = ?", (lead_id,)).fetchone()
+    if current is None:
+        con.close()
+        return "Заявка не найдена", 404
+    con.execute("UPDATE leads SET archived = ? WHERE id = ?", (0 if current["archived"] else 1, lead_id))
+    con.commit()
+    con.close()
+    params = {"q": request.form.get("q", ""), "date_from": request.form.get("date_from", ""), "date_to": request.form.get("date_to", ""), "status": request.form.get("filter_status", ""), "show_archived": request.form.get("show_archived", "")}
     return redirect(url_for("admin", **{key: value for key, value in params.items() if value}))
 
 
