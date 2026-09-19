@@ -171,6 +171,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- файл в форме ---------- */
+  document.querySelectorAll('[data-form]').forEach(function (form) {
+    if (form.querySelector('input[name=file]')) return;
+    var consent = form.querySelector('input[name=consent]');
+    var consentField = consent && consent.closest('.form-field');
+    if (!consentField) return;
+    var fileField = document.createElement('div');
+    fileField.className = 'form-field form-field--full';
+    fileField.innerHTML = '<div class="form-file"><svg aria-hidden="true"><use href="/img/icons.svg#paperclip"></use></svg><span class="form-file__name">Прикрепить файл (модель, чертёж, фото) — до 25 МБ</span><input name="file" type="file" accept=".stl,.obj,.3mf,.step,.stp,.pdf,.dxf,.dwg,.jpg,.jpeg,.png,.zip" aria-label="Прикрепить файл ТЗ или 3D-модель"></div><div class="form-hint-file">STL, OBJ, 3MF, STEP, PDF, DXF, DWG, JPG, PNG, ZIP</div>';
+    consentField.parentNode.insertBefore(fileField, consentField);
+  });
+
   document.querySelectorAll('.form-file').forEach(function (wrap) {
     var input = wrap.querySelector('input[type=file]');
     var label = wrap.querySelector('.form-file__name');
