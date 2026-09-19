@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
       fd.append('phone', fields.phone.value.trim());
       fd.append('email', fields.email.value.trim());
       fd.append('task', fields.task.value.trim());
+      fd.append('consent', '1');
       if (fields.comment) fd.append('comment', fields.comment.value.trim());
       if (file && file.files.length) fd.append('file', file.files[0]);
 

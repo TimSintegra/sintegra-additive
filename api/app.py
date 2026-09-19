@@ -1,7 +1,11 @@
 import html
 import io
 import os
+import re
+import secrets
 import sqlite3
+import threading
+import time
 import urllib.parse
 import urllib.request
 import zipfile
@@ -13,7 +17,15 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "change-this-secret-key")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("SECRET_KEY must be set to a long random value")
+app.secret_key = SECRET_KEY
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+)
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 DB_PATH = os.path.join(DATA_DIR, "leads.db")
@@ -24,6 +36,13 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
 MAX_FILE_MB = 25
+MAX_REQUEST_BYTES = MAX_FILE_MB * 1024 * 1024 + 1024 * 1024
+MAX_FIELD_LENGTHS = {"name": 120, "phone": 40, "email": 254, "task": 500, "comment": 5000}
+ALLOWED_FILE_EXTENSIONS = {".stl", ".obj", ".3mf", ".step", ".stp", ".pdf", ".dxf", ".dwg", ".jpg", ".jpeg", ".png", ".zip"}
+RATE_LIMIT_WINDOW = 60
+RATE_LIMIT_REQUESTS = 10
+rate_limit_lock = threading.Lock()
+rate_limit_state = {}
 STATUS_LABELS = {
     "new": "Новая",
     "in_work": "В работе",
@@ -31,6 +50,44 @@ STATUS_LABELS = {
     "cancelled": "Отменена",
 }
 ARCHIVE_LABEL = "В архиве"
+
+
+def csrf_token():
+    token = session.get("csrf_token")
+    if not token:
+        token = secrets.token_urlsafe(32)
+        session["csrf_token"] = token
+    return token
+
+
+def check_csrf():
+    supplied = request.form.get("csrf_token", "")
+    expected = session.get("csrf_token", "")
+    return bool(expected and supplied and secrets.compare_digest(supplied, expected))
+
+
+def rate_limited():
+    now = time.monotonic()
+    # API is reachable through our nginx proxy, which overwrites X-Real-IP.
+    client = request.headers.get("X-Real-IP") or request.remote_addr or "unknown"
+    with rate_limit_lock:
+        recent = [stamp for stamp in rate_limit_state.get(client, []) if now - stamp < RATE_LIMIT_WINDOW]
+        if len(recent) >= RATE_LIMIT_REQUESTS:
+            rate_limit_state[client] = recent
+            return True
+        recent.append(now)
+        rate_limit_state[client] = recent
+    return False
+
+
+app.config["MAX_CONTENT_LENGTH"] = MAX_REQUEST_BYTES
+
+
+@app.errorhandler(413)
+def request_too_large(error):
+    if request.path == "/api/lead":
+        return jsonify({"error": f"Запрос или файл больше {MAX_FILE_MB} МБ"}), 413
+    return "Запрос слишком большой", 413
 
 
 def db():
@@ -274,10 +331,11 @@ th,td{display:block;min-width:0;padding:0;border:0}
 <section class="panel login">
 <h1>Вход в админ-панель</h1><p class="hint">Синтегра 3D · заявки с сайта</p>
 {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
-<form method="post"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form>
+<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><label for="password">Пароль администратора</label><input id="password" name="password" type="password" required autofocus><button class="btn" type="submit">Войти</button></form>
 </section>
 {% else %}
 {% macro filter_fields(archive_value) %}
+<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 <input type="hidden" name="q" value="{{ filters.q }}">
 <input type="hidden" name="date_from" value="{{ filters.date_from }}">
 <input type="hidden" name="date_to" value="{{ filters.date_to }}">
@@ -286,7 +344,7 @@ th,td{display:block;min-width:0;padding:0;border:0}
 {% endmacro %}
 <header class="top">
 <div class="brand"><h1>Заявки Синтегра 3D</h1><small>Административная панель</small></div>
-<div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><button class="btn danger" type="submit">Выйти</button></form></div>
+<div class="actions"><a class="btn" href="{{ export_url }}">Скачать Excel</a><form method="post" action="{{ url_for('admin_logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="btn danger" type="submit">Выйти</button></form></div>
 </header>
 <section class="stats" aria-label="Статистика заявок">
 <div class="stat"><b>{{ total_count }}</b><span>Всего заявок</span></div>
@@ -348,16 +406,25 @@ th,td{display:block;min-width:0;padding:0;border:0}
 
 @app.post("/api/lead")
 def lead():
+    if rate_limited():
+        return jsonify({"error": "Слишком много запросов. Попробуйте через минуту."}), 429
     name = (request.form.get("name") or "").strip()
     phone = (request.form.get("phone") or "").strip()
     email = (request.form.get("email") or "").strip()
     task = (request.form.get("task") or "").strip()
     comment = (request.form.get("comment") or "").strip()
+    for field, value in (("name", name), ("phone", phone), ("email", email), ("task", task), ("comment", comment)):
+        if len(value) > MAX_FIELD_LENGTHS[field]:
+            return jsonify({"error": "Слишком длинное значение в поле формы"}), 400
+    if request.form.get("consent") not in {"1", "on", "true"}:
+        return jsonify({"error": "Необходимо согласие на обработку персональных данных"}), 400
     if len(name) < 2:
         return jsonify({"error": "Введите корректное имя"}), 400
+    if not task:
+        return jsonify({"error": "Опишите, что необходимо изготовить"}), 400
     if len("".join(c for c in phone if c.isdigit())) < 6:
         return jsonify({"error": "Введите корректный телефон"}), 400
-    if email and "@" not in email:
+    if email and not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
         return jsonify({"error": "Введите корректный e-mail"}), 400
 
     file_name = None
@@ -369,9 +436,13 @@ def lead():
         if size > MAX_FILE_MB * 1024 * 1024:
             return jsonify({"error": f"Файл больше {MAX_FILE_MB} МБ"}), 400
         safe = secure_filename(f.filename) or "file"
-        file_path = os.path.join(UPLOAD_DIR, datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S") + "_" + safe)
+        extension = os.path.splitext(safe)[1].lower()
+        if extension not in ALLOWED_FILE_EXTENSIONS:
+            return jsonify({"error": "Недопустимый тип файла"}), 400
+        stored_name = secrets.token_hex(16) + extension
+        file_path = os.path.join(UPLOAD_DIR, stored_name)
         f.save(file_path)
-        file_name = os.path.basename(file_path)
+        file_name = stored_name
 
     created = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     con = db()
@@ -405,12 +476,14 @@ def admin():
     if not ADMIN_PASSWORD:
         return "Админ-панель не настроена: задайте ADMIN_PASSWORD на сервере.", 503
     if request.method == "POST":
+        if not check_csrf():
+            return "Недействительный CSRF-токен", 400
         if request.form.get("password", "") != ADMIN_PASSWORD:
-            return render_template_string(ADMIN_TEMPLATE, login=True, error="Неверный пароль"), 401
+            return render_template_string(ADMIN_TEMPLATE, login=True, error="Неверный пароль", csrf_token=csrf_token()), 401
         session["admin_authenticated"] = True
         return redirect(url_for("admin"))
     if not admin_required():
-        return render_template_string(ADMIN_TEMPLATE, login=True, error=None)
+        return render_template_string(ADMIN_TEMPLATE, login=True, error=None, csrf_token=csrf_token())
 
     filters = get_filters()
     rows = get_leads(filters)
@@ -418,13 +491,15 @@ def admin():
     query_filters = dict(filters)
     query_filters["show_archived"] = "1" if filters["show_archived"] else ""
     query = urllib.parse.urlencode({key: value for key, value in query_filters.items() if value})
-    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, status_labels=STATUS_LABELS, archive_label=ARCHIVE_LABEL, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""))
+    return render_template_string(ADMIN_TEMPLATE, login=False, filters=filters, rows=rows, status_labels=STATUS_LABELS, archive_label=ARCHIVE_LABEL, total_count=len(all_rows), filtered_count=len(rows), with_files=sum(1 for row in all_rows if row["file_name"]), export_url=url_for("admin_export") + ("?" + query if query else ""), csrf_token=csrf_token())
 
 
 @app.post("/api/admin/status/<int:lead_id>")
 def admin_status_update(lead_id):
     if not admin_required():
         return redirect(url_for("admin"))
+    if not check_csrf():
+        return "Недействительный CSRF-токен", 400
     status = request.form.get("status", "")
     if status not in STATUS_LABELS:
         return "Недопустимый статус", 400
@@ -440,6 +515,8 @@ def admin_status_update(lead_id):
 def admin_archive(lead_id):
     if not admin_required():
         return redirect(url_for("admin"))
+    if not check_csrf():
+        return "Недействительный CSRF-токен", 400
     con = db()
     current = con.execute("SELECT archived FROM leads WHERE id = ?", (lead_id,)).fetchone()
     if current is None:
@@ -454,6 +531,8 @@ def admin_archive(lead_id):
 
 @app.post("/api/admin/logout")
 def admin_logout():
+    if not check_csrf():
+        return "Недействительный CSRF-токен", 400
     session.clear()
     return redirect(url_for("admin"))
 
